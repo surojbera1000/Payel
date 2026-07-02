@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account | Payel Food Products</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar"><div class="container"><div class="nav-content">
+            <div class="logo"><a href="../index.html"><span class="logo-icon">🍜</span><div class="logo-text"><h1>Payel Food</h1><span>Premium Quality Since 2020</span></div></a></div>
+            <div class="nav-actions"><a href="../index.html" class="btn btn-outline-dark btn-sm"><i class="fas fa-home"></i> Home</a></div>
+        </div></div></nav>
+    </header>
+
+    <section class="page-section">
+        <div class="container">
+            <div class="auth-container" id="authContainer">
+                <!-- Login Form -->
+                <div class="auth-card" id="loginForm">
+                    <div class="auth-header">
+                        <span style="font-size:3rem;">🍜</span>
+                        <h2>Welcome Back!</h2>
+                        <p>Login to your Payel Food account</p>
+                    </div>
+                    <form onsubmit="event.preventDefault(); showToast('Login successful!'); showDashboard();">
+                        <div class="form-group"><label>Email or Phone *</label><input type="text" placeholder="Enter email or phone" required></div>
+                        <div class="form-group"><label>Password *</label><input type="password" placeholder="Enter password" required></div>
+                        <div class="form-row">
+                            <label class="checkbox-label"><input type="checkbox"> Remember me</label>
+                            <a href="#" class="forgot-link">Forgot Password?</a>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;">Login <i class="fas fa-sign-in-alt"></i></button>
+                    </form>
+                    <div class="auth-divider"><span>OR</span></div>
+                    <button class="btn btn-outline-dark" style="width:100%;justify-content:center;" onclick="showToast('Google login coming soon!')"><i class="fab fa-google"></i> Continue with Google</button>
+                    <p class="auth-switch">Don't have an account? <a href="#" onclick="showRegister()">Register</a></p>
+                </div>
+
+                <!-- Register Form -->
+                <div class="auth-card" id="registerForm" style="display:none;">
+                    <div class="auth-header">
+                        <span style="font-size:3rem;">🍜</span>
+                        <h2>Create Account</h2>
+                        <p>Join Payel Food family today</p>
+                    </div>
+                    <form onsubmit="event.preventDefault(); showToast('Account created successfully!'); showLogin();">
+                        <div class="form-grid">
+                            <div class="form-group"><label>Full Name *</label><input type="text" placeholder="Your full name" required></div>
+                            <div class="form-group"><label>Phone *</label><input type="tel" placeholder="+91 XXXXX XXXXX" required></div>
+                            <div class="form-group full-width"><label>Email *</label><input type="email" placeholder="your@email.com" required></div>
+                            <div class="form-group"><label>Password *</label><input type="password" placeholder="Create password" required></div>
+                            <div class="form-group"><label>Confirm Password *</label><input type="password" placeholder="Confirm password" required></div>
+                        </div>
+                        <label class="checkbox-label" style="margin:15px 0;"><input type="checkbox" required> I agree to the Terms & Conditions</label>
+                        <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;">Create Account <i class="fas fa-user-plus"></i></button>
+                    </form>
+                    <p class="auth-switch">Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+                </div>
+
+                <!-- Dashboard -->
+                <div class="dashboard" id="dashboard" style="display:none;">
+                    <div class="dashboard-header">
+                        <div class="user-info"><div class="user-avatar">P</div><div><h3>Payel User</h3><p>payel@example.com</p></div></div>
+                        <button class="btn btn-outline-dark btn-sm" onclick="showLogin(); document.getElementById('dashboard').style.display='none'; document.getElementById('authContainer').style.display='flex';">Logout</button>
+                    </div>
+                    <div class="dashboard-grid">
+                        <div class="dash-card"><i class="fas fa-box"></i><h4>My Orders</h4><p>View order history & track orders</p><span class="dash-count">3 Orders</span></div>
+                        <div class="dash-card"><i class="fas fa-heart"></i><h4>Wishlist</h4><p>Products you've saved</p><span class="dash-count">5 Items</span></div>
+                        <div class="dash-card"><i class="fas fa-map-marker-alt"></i><h4>Addresses</h4><p>Manage delivery addresses</p><span class="dash-count">2 Saved</span></div>
+                        <div class="dash-card"><i class="fas fa-file-invoice"></i><h4>Invoices</h4><p>Download your invoices</p><span class="dash-count">3 Invoices</span></div>
+                    </div>
+                    <div class="recent-orders">
+                        <h3>Recent Orders</h3>
+                        <div class="order-item"><div class="order-info"><strong>#PF20260628</strong><span>June 28, 2026</span></div><div class="order-status delivered">Delivered</div><div class="order-total">₹458</div></div>
+                        <div class="order-item"><div class="order-info"><strong>#PF20260620</strong><span>June 20, 2026</span></div><div class="order-status processing">Processing</div><div class="order-total">₹299</div></div>
+                        <div class="order-item"><div class="order-info"><strong>#PF20260615</strong><span>June 15, 2026</span></div><div class="order-status delivered">Delivered</div><div class="order-total">₹679</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer"><div class="container"><div class="footer-bottom"><div class="footer-bottom-content"><p>&copy; 2026 Payel Food Products. All Rights Reserved.</p></div></div></div></footer>
+    <script src="../js/main.js"></script>
+    <script>
+        function showLogin() { document.getElementById('loginForm').style.display='block'; document.getElementById('registerForm').style.display='none'; }
+        function showRegister() { document.getElementById('loginForm').style.display='none'; document.getElementById('registerForm').style.display='block'; }
+        function showDashboard() { document.getElementById('authContainer').style.display='none'; document.getElementById('dashboard').style.display='block'; }
+    </script>
+</body>
+</html>

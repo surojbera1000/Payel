@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Payel Food Products - Premium quality snacks, chanachur, bhujia, mixture and more. Order online for fresh, hygienic and delicious food products.">
+    <meta name="keywords" content="Payel Food Products, chanachur, bhujia, mixture, namkeen, snacks, premium food, Bengali snacks">
+    <title>Payel Food Products | Premium Quality Snacks & Food Products</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Notification Bar -->
+    <div class="notification-bar" id="notificationBar">
+        <div class="container">
+            <p>🎉 Grand Opening Offer! Use code <strong>PAYEL20</strong> for 20% OFF on your first order! Free delivery on orders above ₹499</p>
+            <button class="notification-close" onclick="closeNotification()"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
+
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="header-top-content">
+                    <div class="header-contact">
+                        <a href="tel:+919876543210"><i class="fas fa-phone"></i> +91 98765 43210</a>
+                        <a href="mailto:info@payelfood.com"><i class="fas fa-envelope"></i> info@payelfood.com</a>
+                    </div>
+                    <div class="header-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-content">
+                    <div class="logo">
+                        <a href="index.html">
+                            <span class="logo-icon">🍜</span>
+                            <div class="logo-text">
+                                <h1>Payel Food</h1>
+                                <span>Premium Quality Since 2020</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search for chanachur, bhujia, snacks..." id="searchInput">
+                        <button class="search-btn"><i class="fas fa-search"></i></button>
+                        <div class="search-suggestions" id="searchSuggestions"></div>
+                    </div>
+                    <div class="nav-actions">
+                        <a href="pages/account.html" class="nav-icon" title="Account"><i class="fas fa-user"></i></a>
+                        <a href="pages/wishlist.html" class="nav-icon" title="Wishlist"><i class="fas fa-heart"></i><span class="badge">0</span></a>
+                        <a href="pages/cart.html" class="nav-icon cart-icon" title="Cart"><i class="fas fa-shopping-cart"></i><span class="badge" id="cartCount">0</span></a>
+                        <button class="dark-mode-toggle" id="darkModeToggle" title="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+                        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+                    </div>
+                </div>
+                <div class="nav-menu" id="navMenu">
+                    <ul class="nav-links">
+                        <li><a href="index.html" class="active">Home</a></li>
+                        <li class="has-dropdown">
+                            <a href="pages/products.html">Products <i class="fas fa-chevron-down"></i></a>
+                            <div class="mega-menu">
+                                <div class="mega-menu-grid">
+                                    <div class="mega-col">
+                                        <h4>Snacks</h4>
+                                        <a href="pages/products.html?cat=chanachur">Chanachur</a>
+                                        <a href="pages/products.html?cat=bhujia">Bhujia</a>
+                                        <a href="pages/products.html?cat=mixture">Mixture</a>
+                                        <a href="pages/products.html?cat=namkeen">Namkeen</a>
+                                    </div>
+                                    <div class="mega-col">
+                                        <h4>More</h4>
+                                        <a href="pages/products.html?cat=peanut">Peanut</a>
+                                        <a href="pages/products.html?cat=moongdal">Moong Dal</a>
+                                        <a href="pages/products.html?cat=chips">Chips</a>
+                                        <a href="pages/products.html?cat=papad">Papad</a>
+                                    </div>
+                                    <div class="mega-col">
+                                        <h4>Coming Soon</h4>
+                                        <a href="#">Sweets</a>
+                                        <a href="#">Pickles</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li><a href="pages/about.html">About</a></li>
+                        <li><a href="pages/distributor.html">Become Distributor</a></li>
+                        <li><a href="pages/blog.html">Blog</a></li>
+                        <li><a href="pages/contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- Hero Banner -->
+    <section class="hero-section" id="heroSection">
+        <div class="hero-slider">
+            <div class="hero-slide active" style="background: linear-gradient(135deg, #8B0000 0%, #DC143C 50%, #FF6347 100%);">
+                <div class="container">
+                    <div class="hero-content">
+                        <span class="hero-badge">✨ Premium Quality</span>
+                        <h2>Authentic Bengali<br><span class="gold-text">Chanachur & Snacks</span></h2>
+                        <p>Experience the royal taste of traditionally crafted snacks, made with premium ingredients and love.</p>
+                        <div class="hero-btns">
+                            <a href="pages/products.html" class="btn btn-primary">Shop Now <i class="fas fa-arrow-right"></i></a>
+                            <a href="pages/products.html" class="btn btn-outline">Explore Products</a>
+                        </div>
+                        <div class="hero-stats">
+                            <div class="stat"><strong>50+</strong><span>Products</span></div>
+                            <div class="stat"><strong>10K+</strong><span>Happy Customers</span></div>
+                            <div class="stat"><strong>100%</strong><span>Fresh & Hygienic</span></div>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <div class="hero-product-showcase">
+                            <div class="floating-snack">🥨</div>
+                            <div class="floating-snack delay-1">🥜</div>
+                            <div class="floating-snack delay-2">🍿</div>
+                            <div class="main-product-display">Premium Chanachur</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-slide" style="background: linear-gradient(135deg, #B8860B 0%, #DAA520 50%, #FFD700 100%);">
+                <div class="container">
+                    <div class="hero-content">
+                        <span class="hero-badge">🎊 Festival Special</span>
+                        <h2>Festive Season<br><span class="white-text">Special Offers</span></h2>
+                        <p>Celebrate every occasion with our premium festive gift packs and exclusive combos.</p>
+                        <div class="hero-btns">
+                            <a href="pages/products.html" class="btn btn-dark">Order Now <i class="fas fa-arrow-right"></i></a>
+                            <a href="pages/products.html" class="btn btn-outline-dark">View Offers</a>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <div class="hero-product-showcase golden">
+                            <div class="floating-snack">🎁</div>
+                            <div class="floating-snack delay-1">🪔</div>
+                            <div class="floating-snack delay-2">🎆</div>
+                            <div class="main-product-display">Festival Gift Packs</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-slide" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);">
+                <div class="container">
+                    <div class="hero-content">
+                        <span class="hero-badge">🆕 New Launch</span>
+                        <h2>Introducing<br><span class="gold-text">Premium Bhujia Collection</span></h2>
+                        <p>Crispy, crunchy, and irresistibly delicious. Our newest range of premium bhujia is here!</p>
+                        <div class="hero-btns">
+                            <a href="pages/products.html" class="btn btn-primary">Discover <i class="fas fa-arrow-right"></i></a>
+                            <a href="pages/products.html" class="btn btn-outline">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <div class="hero-product-showcase">
+                            <div class="floating-snack">✨</div>
+                            <div class="floating-snack delay-1">🌟</div>
+                            <div class="floating-snack delay-2">💫</div>
+                            <div class="main-product-display">Premium Bhujia</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-controls">
+            <button class="hero-prev" onclick="prevSlide()"><i class="fas fa-chevron-left"></i></button>
+            <div class="hero-dots" id="heroDots"></div>
+            <button class="hero-next" onclick="nextSlide()"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+
+    <!-- Categories Section -->
+    <section class="categories-section section-padding">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Our Range</span>
+                <h2>Shop by <span class="highlight">Categories</span></h2>
+                <p>Explore our diverse range of premium snacks and food products</p>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card" onclick="location.href='pages/products.html?cat=chanachur'">
+                    <div class="category-icon">🥨</div>
+                    <h3>Chanachur</h3>
+                    <p>12 Products</p>
+                    <span class="category-arrow"><i class="fas fa-arrow-right"></i></span>
+                </div>
+                <div class="category-card" onclick="location.href='pages/products.html?cat=bhujia'">
+                    <div class="category-icon">🍿</div>
+                    <h3>Bhujia</h3>
+                    <p>8 Products</p>
+                    <span class="category-arrow"><i class="fas fa-arrow-right"></i></span>
+                </div>
+                <div class="category-card" onclick="location.href='pages/products.html?cat=mixture'">
+                    <div class="category-icon">🥜</div>
+                    <h3>Mixture</h3>
+                    <p>10 Products</p>
+                    <span class="category-arrow"><i class="fas fa-arrow-right"></i></span>
+                </div>
+                <div class="category-card" onclick="location.href='pages/products.html?cat=namkeen'">
+                    <div class="category-icon">🍘</div>
+                    <h3>Namkeen</h3>
+                    <p>15 Products</p>
+                    <span class="category-arrow"><i class="fas fa-arrow-right"></i></span>
+                </div>
+                <div class="category-card" onclick="location.href='pages/products.html?cat=peanut'">
+                    <div class="category-icon">🥜</div>
+                    <h3>Peanut</h3>
+                    <p>6 Products</p>
+                    <span class="category-arrow"><i class="fas fa-arrow-right"></i></span>
+                </div>
+                <div class="category-card" onclick="location.href='pages/products.html?cat=moongdal'">
+                    <div class="category-icon">🫘</div>
+                    <h3>Moong Dal</h3>
+                    <p>5 Products</p>
+                    <span class="category-arrow"><i class="fas fa-arrow-right"></i></span>
+                </div>
+                <div class="category-card" onclick="location.href='pages/products.html?cat=chips'">
+                    <div class="category-icon">🍟</div>
+                    <h3>Chips</h3>
+                    <p>8 Products</p>
+                    <span class="category-arrow"><i class="fas fa-arrow-right"></i></span>
+                </div>
+                <div class="category-card" onclick="location.href='pages/products.html?cat=papad'">
+                    <div class="category-icon">🫓</div>
+                    <h3>Papad</h3>
+                    <p>4 Products</p>
+                    <span class="category-arrow"><i class="fas fa-arrow-right"></i></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Featured Products -->
+    <section class="products-section section-padding bg-light">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Top Picks</span>
+                <h2>Featured <span class="highlight">Products</span></h2>
+                <p>Handpicked premium products loved by our customers</p>
+            </div>
+            <div class="products-grid" id="featuredProducts">
+                <!-- Product Card 1 -->
+                <div class="product-card">
+                    <div class="product-badge sale">20% OFF</div>
+                    <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    <div class="product-image">
+                        <div class="product-placeholder">🥨</div>
+                        <div class="product-overlay">
+                            <button class="quick-view-btn" onclick="openQuickView(1)">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Chanachur</span>
+                        <h3 class="product-name">Premium Chanachur Special</h3>
+                        <div class="product-weight">200g | 500g | 1kg</div>
+                        <div class="product-rating">
+                            <div class="stars">★★★★★</div>
+                            <span>(128 reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">₹149</span>
+                            <span class="original-price">₹189</span>
+                        </div>
+                        <div class="product-stock in-stock"><i class="fas fa-check-circle"></i> In Stock</div>
+                        <div class="product-actions">
+                            <button class="btn btn-cart" onclick="addToCart(1)"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-buy" onclick="buyNow(1)">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="product-card">
+                    <div class="product-badge new">NEW</div>
+                    <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    <div class="product-image">
+                        <div class="product-placeholder">🍿</div>
+                        <div class="product-overlay">
+                            <button class="quick-view-btn" onclick="openQuickView(2)">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Bhujia</span>
+                        <h3 class="product-name">Classic Bhujia Sev</h3>
+                        <div class="product-weight">150g | 400g | 1kg</div>
+                        <div class="product-rating">
+                            <div class="stars">★★★★☆</div>
+                            <span>(96 reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">₹129</span>
+                            <span class="original-price">₹159</span>
+                        </div>
+                        <div class="product-stock in-stock"><i class="fas fa-check-circle"></i> In Stock</div>
+                        <div class="product-actions">
+                            <button class="btn btn-cart" onclick="addToCart(2)"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-buy" onclick="buyNow(2)">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product Card 3 -->
+                <div class="product-card">
+                    <div class="product-badge bestseller">BESTSELLER</div>
+                    <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    <div class="product-image">
+                        <div class="product-placeholder">🥜</div>
+                        <div class="product-overlay">
+                            <button class="quick-view-btn" onclick="openQuickView(3)">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Mixture</span>
+                        <h3 class="product-name">Royal Mix Namkeen</h3>
+                        <div class="product-weight">250g | 500g</div>
+                        <div class="product-rating">
+                            <div class="stars">★★★★★</div>
+                            <span>(215 reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">₹179</span>
+                            <span class="original-price">₹219</span>
+                        </div>
+                        <div class="product-stock in-stock"><i class="fas fa-check-circle"></i> In Stock</div>
+                        <div class="product-actions">
+                            <button class="btn btn-cart" onclick="addToCart(3)"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-buy" onclick="buyNow(3)">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 4 -->
+                <div class="product-card">
+                    <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    <div class="product-image">
+                        <div class="product-placeholder">🍘</div>
+                        <div class="product-overlay">
+                            <button class="quick-view-btn" onclick="openQuickView(4)">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Namkeen</span>
+                        <h3 class="product-name">Spicy Aloo Bhujia</h3>
+                        <div class="product-weight">200g | 500g</div>
+                        <div class="product-rating">
+                            <div class="stars">★★★★☆</div>
+                            <span>(87 reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">₹99</span>
+                            <span class="original-price">₹129</span>
+                        </div>
+                        <div class="product-stock in-stock"><i class="fas fa-check-circle"></i> In Stock</div>
+                        <div class="product-actions">
+                            <button class="btn btn-cart" onclick="addToCart(4)"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-buy" onclick="buyNow(4)">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product Card 5 -->
+                <div class="product-card">
+                    <div class="product-badge sale">15% OFF</div>
+                    <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    <div class="product-image">
+                        <div class="product-placeholder">🫘</div>
+                        <div class="product-overlay">
+                            <button class="quick-view-btn" onclick="openQuickView(5)">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Moong Dal</span>
+                        <h3 class="product-name">Crispy Moong Dal</h3>
+                        <div class="product-weight">150g | 300g</div>
+                        <div class="product-rating">
+                            <div class="stars">★★★★★</div>
+                            <span>(64 reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">₹89</span>
+                            <span class="original-price">₹109</span>
+                        </div>
+                        <div class="product-stock in-stock"><i class="fas fa-check-circle"></i> In Stock</div>
+                        <div class="product-actions">
+                            <button class="btn btn-cart" onclick="addToCart(5)"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-buy" onclick="buyNow(5)">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product Card 6 -->
+                <div class="product-card">
+                    <div class="product-badge new">NEW</div>
+                    <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    <div class="product-image">
+                        <div class="product-placeholder">🍟</div>
+                        <div class="product-overlay">
+                            <button class="quick-view-btn" onclick="openQuickView(6)">Quick View</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Chips</span>
+                        <h3 class="product-name">Masala Potato Chips</h3>
+                        <div class="product-weight">100g | 200g | 500g</div>
+                        <div class="product-rating">
+                            <div class="stars">★★★★☆</div>
+                            <span>(43 reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="current-price">₹69</span>
+                            <span class="original-price">₹89</span>
+                        </div>
+                        <div class="product-stock in-stock"><i class="fas fa-check-circle"></i> In Stock</div>
+                        <div class="product-actions">
+                            <button class="btn btn-cart" onclick="addToCart(6)"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-buy" onclick="buyNow(6)">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Best Selling Products -->
+    <section class="products-section section-padding">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Most Popular</span>
+                <h2>Best <span class="highlight">Sellers</span></h2>
+                <p>Our most loved products that keep customers coming back</p>
+            </div>
+            <div class="products-scroll">
+                <div class="product-card horizontal">
+                    <div class="product-image"><div class="product-placeholder">🥨</div></div>
+                    <div class="product-info">
+                        <h3 class="product-name">Special Chanachur Family Pack</h3>
+                        <div class="product-rating"><div class="stars">★★★★★</div><span>(312)</span></div>
+                        <div class="product-price"><span class="current-price">₹299</span><span class="original-price">₹399</span></div>
+                        <button class="btn btn-cart btn-sm" onclick="addToCart(7)"><i class="fas fa-cart-plus"></i> Add</button>
+                    </div>
+                </div>
+                <div class="product-card horizontal">
+                    <div class="product-image"><div class="product-placeholder">🍿</div></div>
+                    <div class="product-info">
+                        <h3 class="product-name">Premium Bhujia Combo</h3>
+                        <div class="product-rating"><div class="stars">★★★★★</div><span>(256)</span></div>
+                        <div class="product-price"><span class="current-price">₹249</span><span class="original-price">₹329</span></div>
+                        <button class="btn btn-cart btn-sm" onclick="addToCart(8)"><i class="fas fa-cart-plus"></i> Add</button>
+                    </div>
+                </div>
+                <div class="product-card horizontal">
+                    <div class="product-image"><div class="product-placeholder">🥜</div></div>
+                    <div class="product-info">
+                        <h3 class="product-name">Masala Peanut Jar</h3>
+                        <div class="product-rating"><div class="stars">★★★★☆</div><span>(189)</span></div>
+                        <div class="product-price"><span class="current-price">₹199</span><span class="original-price">₹249</span></div>
+                        <button class="btn btn-cart btn-sm" onclick="addToCart(9)"><i class="fas fa-cart-plus"></i> Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Festival Offers Banner -->
+    <section class="festival-banner">
+        <div class="container">
+            <div class="festival-content">
+                <div class="festival-text">
+                    <span class="festival-badge">🪔 Festival Special</span>
+                    <h2>Durga Puja Special<br>Gift Hampers</h2>
+                    <p>Make your celebrations sweeter with our exclusive festive packs. Order now and get free gift wrapping!</p>
+                    <div class="festival-timer" id="festivalTimer">
+                        <div class="timer-block"><span id="days">15</span><small>Days</small></div>
+                        <div class="timer-block"><span id="hours">08</span><small>Hours</small></div>
+                        <div class="timer-block"><span id="minutes">45</span><small>Mins</small></div>
+                        <div class="timer-block"><span id="seconds">30</span><small>Secs</small></div>
+                    </div>
+                    <a href="pages/products.html" class="btn btn-primary btn-lg">Shop Festive Collection <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="festival-image">
+                    <div class="festival-showcase">🎁🪔🎆</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Why Choose Us -->
+    <section class="why-choose section-padding">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Our Promise</span>
+                <h2>Why Choose <span class="highlight">Payel Food?</span></h2>
+                <p>We're committed to bringing you the finest quality food products</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-award"></i></div>
+                    <h3>Premium Quality</h3>
+                    <p>Only the finest ingredients selected for our products</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-leaf"></i></div>
+                    <h3>Fresh Ingredients</h3>
+                    <p>Sourced daily from trusted suppliers for maximum freshness</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Hygienically Packed</h3>
+                    <p>FSSAI certified production with strict quality control</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-tags"></i></div>
+                    <h3>Affordable Price</h3>
+                    <p>Premium quality at prices that fit every budget</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-truck"></i></div>
+                    <h3>Fast Delivery</h3>
+                    <p>Quick and safe delivery right to your doorstep</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-handshake"></i></div>
+                    <h3>Trusted Brand</h3>
+                    <p>Loved by 10,000+ happy customers across India</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section section-padding bg-light">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content">
+                    <span class="section-badge">Our Story</span>
+                    <h2>About <span class="highlight">Payel Food Products</span></h2>
+                    <p>Founded with a passion for authentic Bengali flavors, Payel Food Products has been serving premium quality snacks since 2020. Our journey began with a simple mission — to bring the traditional taste of homemade snacks to every household.</p>
+                    <p>From our state-of-the-art manufacturing facility, we produce over 50+ varieties of snacks including chanachur, bhujia, mixture, namkeen, and more. Every product is crafted with love, premium ingredients, and strict quality control measures.</p>
+                    <div class="about-highlights">
+                        <div class="about-stat">
+                            <i class="fas fa-industry"></i>
+                            <div><strong>Modern Factory</strong><span>State-of-the-art facility</span></div>
+                        </div>
+                        <div class="about-stat">
+                            <i class="fas fa-certificate"></i>
+                            <div><strong>FSSAI Certified</strong><span>Food safety guaranteed</span></div>
+                        </div>
+                        <div class="about-stat">
+                            <i class="fas fa-users"></i>
+                            <div><strong>100+ Employees</strong><span>Dedicated team</span></div>
+                        </div>
+                    </div>
+                    <a href="pages/about.html" class="btn btn-primary">Read Our Story <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="about-image">
+                    <div class="about-image-placeholder">
+                        <i class="fas fa-industry"></i>
+                        <span>Our Manufacturing Unit</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Testimonials -->
+    <section class="testimonials-section section-padding">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Customer Love</span>
+                <h2>What Our <span class="highlight">Customers Say</span></h2>
+                <p>Real reviews from our happy customers</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p>"The chanachur from Payel Food is absolutely amazing! It reminds me of the homemade taste my grandmother used to make. Best quality and fresh every time!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">R</div>
+                        <div><strong>Rajesh Kumar</strong><span>Kolkata</span></div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p>"I ordered the festival gift pack for Durga Puja and everyone loved it! Premium packaging and taste. Will definitely order again. Highly recommended!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">P</div>
+                        <div><strong>Priya Sharma</strong><span>Delhi</span></div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p>"As a distributor, I'm impressed with their quality and business support. My customers always ask for Payel Food products. Great brand to partner with!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">A</div>
+                        <div><strong>Amit Das</strong><span>Howrah</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Distributor CTA -->
+    <section class="distributor-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Become a <span class="gold-text">Distributor</span></h2>
+                <p>Join our growing network of distributors and retailers across India. Attractive margins, marketing support, and dedicated business assistance.</p>
+                <div class="cta-btns">
+                    <a href="pages/distributor.html" class="btn btn-primary btn-lg">Apply Now <i class="fas fa-arrow-right"></i></a>
+                    <a href="tel:+919876543210" class="btn btn-outline btn-lg"><i class="fas fa-phone"></i> Call Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog-section section-padding bg-light">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Latest Updates</span>
+                <h2>From Our <span class="highlight">Blog</span></h2>
+                <p>Food articles, recipes, and company news</p>
+            </div>
+            <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-image"><div class="blog-placeholder">📰</div></div>
+                    <div class="blog-content">
+                        <span class="blog-date">June 28, 2026</span>
+                        <h3>Top 10 Healthy Snacks for Your Evening Tea</h3>
+                        <p>Discover our curated list of healthy yet delicious snacks perfect for your chai time...</p>
+                        <a href="pages/blog.html" class="blog-link">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-image"><div class="blog-placeholder">🏭</div></div>
+                    <div class="blog-content">
+                        <span class="blog-date">June 20, 2026</span>
+                        <h3>Inside Our Factory: Quality Control Process</h3>
+                        <p>Take a virtual tour of our manufacturing facility and learn about our quality standards...</p>
+                        <a href="pages/blog.html" class="blog-link">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-image"><div class="blog-placeholder">🎊</div></div>
+                    <div class="blog-content">
+                        <span class="blog-date">June 15, 2026</span>
+                        <h3>Payel Food Expands Distribution to 5 New States</h3>
+                        <p>We're excited to announce our expansion into Maharashtra, Gujarat, and more...</p>
+                        <a href="pages/blog.html" class="blog-link">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Newsletter -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Stay Updated!</h2>
+                <p>Subscribe to get exclusive offers, new product launches, and recipes delivered to your inbox.</p>
+                <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn btn-primary">Subscribe <i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <span class="logo-icon">🍜</span>
+                        <h3>Payel Food Products</h3>
+                    </div>
+                    <p>Premium quality snacks and food products made with love and tradition. Bringing authentic Bengali flavors to your doorstep since 2020.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="pages/about.html">About Us</a></li>
+                        <li><a href="pages/products.html">All Products</a></li>
+                        <li><a href="pages/distributor.html">Become Distributor</a></li>
+                        <li><a href="pages/career.html">Careers</a></li>
+                        <li><a href="pages/blog.html">Blog</a></li>
+                        <li><a href="pages/contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="pages/products.html?cat=chanachur">Chanachur</a></li>
+                        <li><a href="pages/products.html?cat=bhujia">Bhujia</a></li>
+                        <li><a href="pages/products.html?cat=mixture">Mixture</a></li>
+                        <li><a href="pages/products.html?cat=namkeen">Namkeen</a></li>
+                        <li><a href="pages/products.html?cat=chips">Chips</a></li>
+                        <li><a href="pages/products.html?cat=papad">Papad</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Customer Help</h4>
+                    <ul>
+                        <li><a href="pages/account.html">My Account</a></li>
+                        <li><a href="pages/cart.html">Shopping Cart</a></li>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Return Policy</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Info</h4>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Food Street, Kolkata, West Bengal 700001</p>
+                        <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                        <p><i class="fab fa-whatsapp"></i> +91 98765 43210</p>
+                        <p><i class="fas fa-envelope"></i> info@payelfood.com</p>
+                        <p><i class="fas fa-clock"></i> Mon - Sat: 9AM - 8PM</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2026 Payel Food Products. All Rights Reserved.</p>
+                    <div class="footer-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms & Conditions</a>
+                        <a href="#">Refund Policy</a>
+                    </div>
+                    <div class="payment-icons">
+                        <span>💳</span><span>📱</span><span>🏦</span>
+                        <span class="payment-text">UPI | Cards | Net Banking</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Floating Buttons -->
+    <div class="floating-buttons">
+        <a href="https://wa.me/919876543210" class="whatsapp-btn" target="_blank" title="Chat on WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="tel:+919876543210" class="call-btn" title="Call Us">
+            <i class="fas fa-phone"></i>
+        </a>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div class="modal" id="quickViewModal">
+        <div class="modal-overlay" onclick="closeQuickView()"></div>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeQuickView()"><i class="fas fa-times"></i></button>
+            <div class="quick-view-body" id="quickViewBody"></div>
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
