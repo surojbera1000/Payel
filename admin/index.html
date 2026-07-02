@@ -5,442 +5,150 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel | Payel Food Products</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="admin.css">
 </head>
 <body>
-    <!-- Login Screen -->
+    <!-- Login -->
     <div class="login-screen" id="loginScreen">
         <div class="login-card">
-            <div class="login-logo">
-                <span>🍜</span>
-                <h1>Payel Food</h1>
-                <p>Admin Panel</p>
-            </div>
+            <span class="login-icon">🍜</span>
+            <h1>Payel Food</h1>
+            <p>Admin Dashboard</p>
             <form onsubmit="handleLogin(event)">
-                <div class="form-group">
-                    <label><i class="fas fa-user"></i> Username</label>
-                    <input type="text" id="loginUsername" placeholder="Enter username" required>
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-lock"></i> Password</label>
-                    <input type="password" id="loginPassword" placeholder="Enter password" required>
-                </div>
-                <button type="submit" class="btn btn-primary btn-full">
-                    <i class="fas fa-sign-in-alt"></i> Login to Dashboard
-                </button>
-                <p class="login-hint">Default: admin / admin123</p>
+                <div class="input-group"><i class="fas fa-user"></i><input type="text" id="loginUser" placeholder="Username" required></div>
+                <div class="input-group"><i class="fas fa-lock"></i><input type="password" id="loginPass" placeholder="Password" required></div>
+                <button type="submit" class="btn-login">Login <i class="fas fa-arrow-right"></i></button>
             </form>
+            <small>Default: admin / admin123</small>
         </div>
     </div>
 
-    <!-- Admin Dashboard -->
-    <div class="admin-wrapper" id="adminWrapper" style="display:none;">
+    <!-- Dashboard -->
+    <div class="admin-app" id="adminApp" style="display:none;">
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
-            <div class="sidebar-logo">
-                <span>🍜</span>
-                <div>
-                    <h2>Payel Food</h2>
-                    <small>Admin Panel</small>
-                </div>
-            </div>
+            <div class="sidebar-brand"><span>🍜</span><strong>Payel Admin</strong></div>
             <nav class="sidebar-nav">
-                <a href="#" class="nav-item active" onclick="showSection('dashboard')">
-                    <i class="fas fa-chart-line"></i> <span>Dashboard</span>
-                </a>
-                <a href="#" class="nav-item" onclick="showSection('products')">
-                    <i class="fas fa-box"></i> <span>Products</span>
-                </a>
-                <a href="#" class="nav-item" onclick="showSection('add-product')">
-                    <i class="fas fa-plus-circle"></i> <span>Add Product</span>
-                </a>
-                <a href="#" class="nav-item" onclick="showSection('orders')">
-                    <i class="fas fa-shopping-bag"></i> <span>Orders</span>
-                </a>
-                <a href="#" class="nav-item" onclick="showSection('categories')">
-                    <i class="fas fa-tags"></i> <span>Categories</span>
-                </a>
-                <a href="#" class="nav-item" onclick="showSection('customers')">
-                    <i class="fas fa-users"></i> <span>Customers</span>
-                </a>
-                <a href="#" class="nav-item" onclick="showSection('settings')">
-                    <i class="fas fa-cog"></i> <span>Settings</span>
-                </a>
+                <button class="nav-btn active" onclick="showPanel('dashboard')"><i class="fas fa-chart-line"></i> Dashboard</button>
+                <button class="nav-btn" onclick="showPanel('products')"><i class="fas fa-box"></i> Products</button>
+                <button class="nav-btn" onclick="showPanel('add')"><i class="fas fa-plus-circle"></i> Add Product</button>
+                <button class="nav-btn" onclick="showPanel('orders')"><i class="fas fa-shopping-bag"></i> Orders</button>
+                <button class="nav-btn" onclick="showPanel('settings')"><i class="fas fa-cog"></i> Settings</button>
             </nav>
-            <div class="sidebar-footer">
-                <button class="btn btn-logout" onclick="handleLogout()">
-                    <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
-                </button>
-            </div>
+            <button class="nav-btn logout" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
         </aside>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Top Bar -->
+        <!-- Main -->
+        <main class="main">
             <header class="topbar">
-                <div class="topbar-left">
-                    <button class="menu-toggle" onclick="toggleSidebar()">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                    <h1 id="pageTitle">Dashboard</h1>
-                </div>
-                <div class="topbar-right">
-                    <div class="topbar-search">
-                        <i class="fas fa-search"></i>
-                        <input type="text" placeholder="Search products..." id="globalSearch" oninput="handleGlobalSearch(this.value)">
-                    </div>
-                    <div class="admin-profile">
-                        <div class="admin-avatar">A</div>
-                        <span>Admin</span>
-                    </div>
-                </div>
+                <button class="menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')"><i class="fas fa-bars"></i></button>
+                <h2 id="panelTitle">Dashboard</h2>
+                <div class="topbar-right"><div class="avatar">A</div></div>
             </header>
 
-
-            <!-- Dashboard Section -->
-            <section class="content-section active" id="section-dashboard">
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon blue"><i class="fas fa-box"></i></div>
-                        <div class="stat-info">
-                            <h3 id="statProducts">0</h3>
-                            <p>Total Products</p>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon green"><i class="fas fa-shopping-bag"></i></div>
-                        <div class="stat-info">
-                            <h3 id="statOrders">24</h3>
-                            <p>Total Orders</p>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon gold"><i class="fas fa-rupee-sign"></i></div>
-                        <div class="stat-info">
-                            <h3 id="statRevenue">₹12,450</h3>
-                            <p>Total Revenue</p>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon red"><i class="fas fa-users"></i></div>
-                        <div class="stat-info">
-                            <h3 id="statCustomers">156</h3>
-                            <p>Customers</p>
-                        </div>
-                    </div>
+            <!-- Dashboard Panel -->
+            <div class="panel active" id="panel-dashboard">
+                <div class="stats-row">
+                    <div class="stat-card"><div class="stat-icon blue"><i class="fas fa-box"></i></div><div><strong id="statTotal">0</strong><span>Products</span></div></div>
+                    <div class="stat-card"><div class="stat-icon green"><i class="fas fa-check-circle"></i></div><div><strong id="statInStock">0</strong><span>In Stock</span></div></div>
+                    <div class="stat-card"><div class="stat-icon orange"><i class="fas fa-exclamation-triangle"></i></div><div><strong id="statLow">0</strong><span>Low Stock</span></div></div>
+                    <div class="stat-card"><div class="stat-icon red"><i class="fas fa-times-circle"></i></div><div><strong id="statOut">0</strong><span>Out of Stock</span></div></div>
                 </div>
+                <div class="card"><div class="card-head"><h3>Recent Products</h3></div><div class="card-body" id="recentList"><p class="muted">No products yet.</p></div></div>
+            </div>
 
-                <div class="dashboard-grid">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3><i class="fas fa-clock"></i> Recent Products</h3>
-                            <a href="#" onclick="showSection('products')">View All</a>
-                        </div>
-                        <div class="card-body" id="recentProducts">
-                            <p class="empty-text">No products added yet.</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h3><i class="fas fa-chart-bar"></i> Quick Stats</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="quick-stat"><span>In Stock</span><strong id="inStockCount">0</strong></div>
-                            <div class="quick-stat"><span>Out of Stock</span><strong id="outStockCount">0</strong></div>
-                            <div class="quick-stat"><span>Categories</span><strong>8</strong></div>
-                            <div class="quick-stat"><span>Low Stock (≤10)</span><strong id="lowStockCount">0</strong></div>
-                        </div>
-                    </div>
+
+            <!-- Products Panel -->
+            <div class="panel" id="panel-products">
+                <div class="toolbar">
+                    <div class="search-input"><i class="fas fa-search"></i><input type="text" id="prodSearch" placeholder="Search products..." oninput="renderTable()"></div>
+                    <button class="btn-primary-sm" onclick="showPanel('add')"><i class="fas fa-plus"></i> Add Product</button>
                 </div>
-            </section>
-
-
-            <!-- Products Section -->
-            <section class="content-section" id="section-products">
-                <div class="section-toolbar">
-                    <div class="toolbar-left">
-                        <div class="search-box">
-                            <i class="fas fa-search"></i>
-                            <input type="text" placeholder="Search products..." id="productSearch" oninput="renderProducts()">
-                        </div>
-                        <select id="filterCategory" onchange="renderProducts()">
-                            <option value="">All Categories</option>
-                            <option value="Chanachur">Chanachur</option>
-                            <option value="Bhujia">Bhujia</option>
-                            <option value="Mixture">Mixture</option>
-                            <option value="Namkeen">Namkeen</option>
-                            <option value="Peanut">Peanut</option>
-                            <option value="Moong Dal">Moong Dal</option>
-                            <option value="Chips">Chips</option>
-                            <option value="Papad">Papad</option>
-                        </select>
-                        <select id="filterStock" onchange="renderProducts()">
-                            <option value="">All Stock</option>
-                            <option value="instock">In Stock</option>
-                            <option value="outofstock">Out of Stock</option>
-                            <option value="lowstock">Low Stock</option>
-                        </select>
-                    </div>
-                    <div class="toolbar-right">
-                        <button class="btn btn-primary" onclick="showSection('add-product')">
-                            <i class="fas fa-plus"></i> Add Product
-                        </button>
-                    </div>
-                </div>
-                <div class="products-table-wrapper">
-                    <table class="data-table" id="productsTable">
-                        <thead>
-                            <tr>
-                                <th><input type="checkbox" id="selectAll" onchange="toggleSelectAll()"></th>
-                                <th>Photo</th>
-                                <th>Product Name</th>
-                                <th>Category</th>
-                                <th>Price</th>
-                                <th>Weight</th>
-                                <th>Stock</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="productsTableBody">
-                        </tbody>
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead><tr><th>Photo</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead>
+                        <tbody id="prodTableBody"></tbody>
                     </table>
-                    <div class="table-empty" id="tableEmpty" style="display:none;">
-                        <i class="fas fa-box-open"></i>
-                        <h3>No Products Found</h3>
-                        <p>Start by adding your first product.</p>
-                        <button class="btn btn-primary" onclick="showSection('add-product')"><i class="fas fa-plus"></i> Add Product</button>
-                    </div>
+                    <div class="table-empty" id="tableEmpty" style="display:none;"><i class="fas fa-box-open"></i><p>No products found</p></div>
                 </div>
-                <div class="table-footer">
-                    <span id="productCountText">0 products</span>
-                    <div class="bulk-actions" id="bulkActions" style="display:none;">
-                        <button class="btn btn-danger btn-sm" onclick="bulkDelete()"><i class="fas fa-trash"></i> Delete Selected</button>
-                    </div>
-                </div>
-            </section>
+            </div>
 
-
-            <!-- Add/Edit Product Section -->
-            <section class="content-section" id="section-add-product">
+            <!-- Add/Edit Product Panel -->
+            <div class="panel" id="panel-add">
                 <div class="card">
-                    <div class="card-header">
-                        <h3 id="formTitle"><i class="fas fa-plus-circle"></i> Add New Product</h3>
-                        <button class="btn btn-outline btn-sm" onclick="resetForm(); showSection('products')">
-                            <i class="fas fa-arrow-left"></i> Back to Products
-                        </button>
-                    </div>
+                    <div class="card-head"><h3 id="formTitle"><i class="fas fa-plus-circle"></i> Add New Product</h3></div>
                     <div class="card-body">
-                        <form id="productForm" onsubmit="handleProductSubmit(event)">
-                            <input type="hidden" id="editProductId">
-                            
-                            <div class="form-row">
+                        <form id="productForm" onsubmit="saveProduct(event)">
+                            <input type="hidden" id="editId">
+                            <div class="form-grid">
                                 <div class="form-col">
-                                    <div class="form-group">
-                                        <label>Product Name *</label>
-                                        <input type="text" id="prodName" placeholder="e.g., Premium Chanachur Special" required>
+                                    <label>Product Name *</label>
+                                    <input type="text" id="fName" placeholder="e.g., Premium Chanachur" required>
+                                    <label>Category *</label>
+                                    <select id="fCategory" required>
+                                        <option value="">Select</option>
+                                        <option>Chanachur</option><option>Bhujia</option><option>Mixture</option>
+                                        <option>Namkeen</option><option>Peanut</option><option>Moong Dal</option>
+                                        <option>Chips</option><option>Papad</option><option>Sweets</option><option>Pickles</option>
+                                    </select>
+                                    <div class="form-row-2">
+                                        <div><label>Selling Price (₹) *</label><input type="number" id="fPrice" min="0" required></div>
+                                        <div><label>MRP (₹)</label><input type="number" id="fMrp" min="0"></div>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Category *</label>
-                                        <select id="prodCategory" required>
-                                            <option value="">Select Category</option>
-                                            <option value="Chanachur">Chanachur</option>
-                                            <option value="Bhujia">Bhujia</option>
-                                            <option value="Mixture">Mixture</option>
-                                            <option value="Namkeen">Namkeen</option>
-                                            <option value="Peanut">Peanut</option>
-                                            <option value="Moong Dal">Moong Dal</option>
-                                            <option value="Chips">Chips</option>
-                                            <option value="Papad">Papad</option>
-                                            <option value="Sweets">Sweets</option>
-                                            <option value="Pickles">Pickles</option>
-                                        </select>
+                                    <div class="form-row-2">
+                                        <div><label>Weight *</label><input type="text" id="fWeight" placeholder="e.g., 200g" required></div>
+                                        <div><label>Stock Qty *</label><input type="number" id="fStock" min="0" required></div>
                                     </div>
-                                    <div class="form-row-inner">
-                                        <div class="form-group">
-                                            <label>Selling Price (₹) *</label>
-                                            <input type="number" id="prodPrice" placeholder="149" min="0" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>MRP / Original Price (₹)</label>
-                                            <input type="number" id="prodOriginalPrice" placeholder="189" min="0">
-                                        </div>
-                                    </div>
-                                    <div class="form-row-inner">
-                                        <div class="form-group">
-                                            <label>Weight *</label>
-                                            <input type="text" id="prodWeight" placeholder="e.g., 200g | 500g | 1kg" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Stock Quantity *</label>
-                                            <input type="number" id="prodStock" placeholder="100" min="0" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>SKU / Product Code</label>
-                                        <input type="text" id="prodSku" placeholder="e.g., PF-CHN-001">
-                                    </div>
+                                    <label>Description *</label>
+                                    <textarea id="fDesc" rows="3" placeholder="Product description..." required></textarea>
                                 </div>
                                 <div class="form-col">
-                                    <div class="form-group">
-                                        <label>Product Photo *</label>
-                                        <div class="photo-upload" id="photoUpload" onclick="document.getElementById('prodPhoto').click()">
-                                            <input type="file" id="prodPhoto" accept="image/*" onchange="handlePhotoUpload(event)" hidden>
-                                            <div class="upload-placeholder" id="uploadPlaceholder">
-                                                <i class="fas fa-cloud-upload-alt"></i>
-                                                <p>Click to upload photo</p>
-                                                <small>PNG, JPG up to 5MB</small>
-                                            </div>
-                                            <img id="photoPreview" src="" alt="" style="display:none;">
-                                        </div>
+                                    <label>Product Photo</label>
+                                    <div class="photo-box" onclick="document.getElementById('fPhoto').click()">
+                                        <input type="file" id="fPhoto" accept="image/*" onchange="previewPhoto(event)" hidden>
+                                        <div id="photoPlaceholder"><i class="fas fa-camera"></i><p>Click to upload</p></div>
+                                        <img id="photoPreview" src="" style="display:none;">
                                     </div>
-                                    <div class="form-group">
-                                        <label>Product Description *</label>
-                                        <textarea id="prodDescription" rows="4" placeholder="Describe your product — ingredients, taste, speciality..." required></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Ingredients</label>
-                                        <textarea id="prodIngredients" rows="2" placeholder="List main ingredients..."></textarea>
-                                    </div>
-                                    <div class="form-row-inner">
-                                        <div class="form-group">
-                                            <label>Shelf Life</label>
-                                            <input type="text" id="prodShelfLife" placeholder="e.g., 6 months">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>FSSAI Number</label>
-                                            <input type="text" id="prodFssai" placeholder="License number">
-                                        </div>
-                                    </div>
+                                    <label>Ingredients</label>
+                                    <textarea id="fIngredients" rows="2" placeholder="Main ingredients..."></textarea>
+                                    <label>Shelf Life</label>
+                                    <input type="text" id="fShelfLife" placeholder="e.g., 6 months">
+                                    <label>FSSAI Number</label>
+                                    <input type="text" id="fFssai" placeholder="License number">
                                 </div>
                             </div>
-
                             <div class="form-actions">
-                                <button type="button" class="btn btn-outline" onclick="resetForm()">
-                                    <i class="fas fa-undo"></i> Reset
-                                </button>
-                                <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
-                                    <i class="fas fa-save"></i> Save Product
-                                </button>
+                                <button type="button" class="btn-outline-sm" onclick="resetForm()">Reset</button>
+                                <button type="submit" class="btn-primary-sm" id="saveBtn"><i class="fas fa-save"></i> Save Product</button>
                             </div>
                         </form>
                     </div>
                 </div>
-            </section>
+            </div>
 
+            <!-- Orders Panel -->
+            <div class="panel" id="panel-orders">
+                <div class="card"><div class="card-head"><h3>Orders</h3></div><div class="card-body"><div style="text-align:center;padding:40px;color:#999;"><i class="fas fa-shopping-bag" style="font-size:2rem;margin-bottom:8px;"></i><p>Order management ready for backend integration.</p></div></div></div>
+            </div>
 
-            <!-- Orders Section -->
-            <section class="content-section" id="section-orders">
-                <div class="card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-shopping-bag"></i> Orders</h3>
-                    </div>
+            <!-- Settings Panel -->
+            <div class="panel" id="panel-settings">
+                <div class="card"><div class="card-head"><h3>Store Settings</h3></div>
                     <div class="card-body">
-                        <div class="placeholder-section">
-                            <i class="fas fa-shopping-bag"></i>
-                            <h3>Order Management</h3>
-                            <p>Orders from customers will appear here. This section is ready for backend integration.</p>
-                        </div>
+                        <label>Store Name</label><input type="text" value="Payel Food Products">
+                        <label>Phone</label><input type="tel" value="+91 98765 43210">
+                        <label>Email</label><input type="email" value="info@payelfood.com">
+                        <label>FSSAI License</label><input type="text" value="12345678901234">
+                        <button class="btn-primary-sm" style="margin-top:12px;" onclick="toast('Settings saved!')"><i class="fas fa-save"></i> Save</button>
                     </div>
                 </div>
-            </section>
-
-            <!-- Categories Section -->
-            <section class="content-section" id="section-categories">
-                <div class="card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-tags"></i> Categories</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="categories-list">
-                            <div class="category-item"><span class="cat-icon">🥨</span><strong>Chanachur</strong><span class="cat-count" id="catChanachur">0 products</span></div>
-                            <div class="category-item"><span class="cat-icon">🍿</span><strong>Bhujia</strong><span class="cat-count" id="catBhujia">0 products</span></div>
-                            <div class="category-item"><span class="cat-icon">🥜</span><strong>Mixture</strong><span class="cat-count" id="catMixture">0 products</span></div>
-                            <div class="category-item"><span class="cat-icon">🍘</span><strong>Namkeen</strong><span class="cat-count" id="catNamkeen">0 products</span></div>
-                            <div class="category-item"><span class="cat-icon">🥜</span><strong>Peanut</strong><span class="cat-count" id="catPeanut">0 products</span></div>
-                            <div class="category-item"><span class="cat-icon">🫘</span><strong>Moong Dal</strong><span class="cat-count" id="catMoong Dal">0 products</span></div>
-                            <div class="category-item"><span class="cat-icon">🍟</span><strong>Chips</strong><span class="cat-count" id="catChips">0 products</span></div>
-                            <div class="category-item"><span class="cat-icon">🫓</span><strong>Papad</strong><span class="cat-count" id="catPapad">0 products</span></div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Customers Section -->
-            <section class="content-section" id="section-customers">
-                <div class="card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-users"></i> Customers</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="placeholder-section">
-                            <i class="fas fa-users"></i>
-                            <h3>Customer Management</h3>
-                            <p>Customer data will appear here once integrated with the backend.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Settings Section -->
-            <section class="content-section" id="section-settings">
-                <div class="card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-cog"></i> Settings</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="settings-grid">
-                            <div class="form-group">
-                                <label>Store Name</label>
-                                <input type="text" value="Payel Food Products">
-                            </div>
-                            <div class="form-group">
-                                <label>Contact Email</label>
-                                <input type="email" value="info@payelfood.com">
-                            </div>
-                            <div class="form-group">
-                                <label>Phone Number</label>
-                                <input type="tel" value="+91 98765 43210">
-                            </div>
-                            <div class="form-group">
-                                <label>Address</label>
-                                <input type="text" value="123 Food Street, Kolkata, WB 700001">
-                            </div>
-                            <div class="form-group">
-                                <label>GST Number</label>
-                                <input type="text" value="19AABCP1234A1Z5">
-                            </div>
-                            <div class="form-group">
-                                <label>FSSAI License</label>
-                                <input type="text" value="12345678901234">
-                            </div>
-                        </div>
-                        <button class="btn btn-primary" onclick="showToast('Settings saved!')"><i class="fas fa-save"></i> Save Settings</button>
-                    </div>
-                </div>
-            </section>
+            </div>
         </main>
     </div>
 
-    <!-- Delete Confirmation Modal -->
-    <div class="modal" id="deleteModal">
-        <div class="modal-overlay" onclick="closeDeleteModal()"></div>
-        <div class="modal-box">
-            <div class="modal-icon"><i class="fas fa-exclamation-triangle"></i></div>
-            <h3>Delete Product?</h3>
-            <p>This action cannot be undone. The product will be permanently removed.</p>
-            <div class="modal-actions">
-                <button class="btn btn-outline" onclick="closeDeleteModal()">Cancel</button>
-                <button class="btn btn-danger" id="confirmDeleteBtn">Yes, Delete</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Toast -->
-    <div id="toastContainer"></div>
-
+    <div id="toastBox"></div>
     <script src="admin.js"></script>
 </body>
 </html>

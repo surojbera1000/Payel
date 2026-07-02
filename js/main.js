@@ -1,353 +1,343 @@
 /* ========================================
-   Payel Food Products - Main JavaScript
+   PAYEL FOOD PRODUCTS - Main JavaScript
+   Production-Ready E-commerce Logic
    ======================================== */
 
-// ===== Product Data =====
-const products = [
-    { id: 1, name: 'Premium Chanachur Special', category: 'Chanachur', price: 149, originalPrice: 189, weight: '200g | 500g | 1kg', rating: 5, reviews: 128, image: '🥨', badge: 'sale', badgeText: '20% OFF', stock: true },
-    { id: 2, name: 'Classic Bhujia Sev', category: 'Bhujia', price: 129, originalPrice: 159, weight: '150g | 400g | 1kg', rating: 4, reviews: 96, image: '🍿', badge: 'new', badgeText: 'NEW', stock: true },
-    { id: 3, name: 'Royal Mix Namkeen', category: 'Mixture', price: 179, originalPrice: 219, weight: '250g | 500g', rating: 5, reviews: 215, image: '🥜', badge: 'bestseller', badgeText: 'BESTSELLER', stock: true },
-    { id: 4, name: 'Spicy Aloo Bhujia', category: 'Namkeen', price: 99, originalPrice: 129, weight: '200g | 500g', rating: 4, reviews: 87, image: '🍘', badge: '', badgeText: '', stock: true },
-    { id: 5, name: 'Crispy Moong Dal', category: 'Moong Dal', price: 89, originalPrice: 109, weight: '150g | 300g', rating: 5, reviews: 64, image: '🫘', badge: 'sale', badgeText: '15% OFF', stock: true },
-    { id: 6, name: 'Masala Potato Chips', category: 'Chips', price: 69, originalPrice: 89, weight: '100g | 200g | 500g', rating: 4, reviews: 43, image: '🍟', badge: 'new', badgeText: 'NEW', stock: true },
-    { id: 7, name: 'Special Chanachur Family Pack', category: 'Chanachur', price: 299, originalPrice: 399, weight: '1kg', rating: 5, reviews: 312, image: '🥨', badge: 'bestseller', badgeText: 'BESTSELLER', stock: true },
-    { id: 8, name: 'Premium Bhujia Combo', category: 'Bhujia', price: 249, originalPrice: 329, weight: '500g + 500g', rating: 5, reviews: 256, image: '🍿', badge: 'sale', badgeText: '25% OFF', stock: true },
-    { id: 9, name: 'Masala Peanut Jar', category: 'Peanut', price: 199, originalPrice: 249, weight: '500g', rating: 4, reviews: 189, image: '🥜', badge: '', badgeText: '', stock: true },
-    { id: 10, name: 'Traditional Papad Pack', category: 'Papad', price: 79, originalPrice: 99, weight: '200g', rating: 4, reviews: 55, image: '🫓', badge: '', badgeText: '', stock: true },
+// ===== PRODUCT DATA =====
+const PRODUCTS = [
+    { id: 1, name: "Premium Chanachur Special", category: "chanachur", price: 149, mrp: 189, weight: "200g", rating: 4.8, reviews: 128, image: "🥨", badge: "best", stock: true, desc: "Our signature chanachur blend with premium spices and crunchy texture." },
+    { id: 2, name: "Classic Bhujia Sev", category: "bhujia", price: 129, mrp: 159, weight: "400g", rating: 4.6, reviews: 96, image: "🍿", badge: "best", stock: true, desc: "Thin, crispy bhujia sev made with besan and secret spice mix." },
+    { id: 3, name: "Royal Mix Namkeen", category: "mixture", price: 179, mrp: 219, weight: "250g", rating: 4.9, reviews: 215, image: "🥜", badge: "best", stock: true, desc: "A royal blend of nuts, sev, and crispy elements." },
+    { id: 4, name: "Spicy Aloo Bhujia", category: "namkeen", price: 99, mrp: 129, weight: "200g", rating: 4.5, reviews: 87, image: "🍘", badge: "offer", stock: true, desc: "Potato-based bhujia with bold spices for snack lovers." },
+    { id: 5, name: "Crispy Moong Dal", category: "moongdal", price: 89, mrp: 109, weight: "150g", rating: 4.7, reviews: 64, image: "🫘", badge: "new", stock: true, desc: "Light and crunchy moong dal, lightly salted and roasted." },
+    { id: 6, name: "Masala Potato Chips", category: "chips", price: 69, mrp: 89, weight: "100g", rating: 4.4, reviews: 43, image: "🍟", badge: "new", stock: true, desc: "Thick-cut potato chips with authentic masala seasoning." },
+    { id: 7, name: "Chanachur Family Pack", category: "chanachur", price: 299, mrp: 399, weight: "1kg", rating: 4.9, reviews: 312, image: "🥨", badge: "best", stock: true, desc: "Family-size pack of our premium chanachur. Great value!" },
+    { id: 8, name: "Dal Moth Premium", category: "mixture", price: 119, mrp: 149, weight: "200g", rating: 4.6, reviews: 78, image: "🥜", badge: "offer", stock: true, desc: "Traditional dal moth with tangy spices and fried lentils." },
+    { id: 9, name: "Masala Peanut", category: "peanut", price: 109, mrp: 139, weight: "250g", rating: 4.5, reviews: 93, image: "🥜", badge: "best", stock: true, desc: "Crunchy peanuts coated with spicy masala." },
+    { id: 10, name: "Khasta Papad", category: "papad", price: 79, mrp: 99, weight: "200g", rating: 4.3, reviews: 55, image: "🫓", badge: "new", stock: true, desc: "Crispy urad dal papad, ready to fry or roast." },
+    { id: 11, name: "Jhaal Chanachur", category: "chanachur", price: 159, mrp: 199, weight: "300g", rating: 4.8, reviews: 156, image: "🥨", badge: "offer", stock: true, desc: "Extra spicy chanachur for those who love heat!" },
+    { id: 12, name: "Bhujia Family Jar", category: "bhujia", price: 249, mrp: 329, weight: "500g", rating: 4.7, reviews: 134, image: "🍿", badge: "best", stock: true, desc: "Reusable jar packed with our finest bhujia sev." },
+    { id: 13, name: "Bengali Mixture", category: "mixture", price: 139, mrp: 169, weight: "200g", rating: 4.6, reviews: 105, image: "🥜", badge: "new", stock: true, desc: "Authentic Bengali-style mixture with puffed rice and chanachur." },
+    { id: 14, name: "Roasted Chana", category: "peanut", price: 59, mrp: 79, weight: "150g", rating: 4.2, reviews: 42, image: "🥜", badge: "", stock: true, desc: "Lightly salted roasted chickpeas - healthy snacking." },
+    { id: 15, name: "Nimki Pack", category: "namkeen", price: 89, mrp: 109, weight: "200g", rating: 4.4, reviews: 61, image: "🍘", badge: "new", stock: true, desc: "Flaky, diamond-shaped nimki with cumin seeds." },
+    { id: 16, name: "Hot Chips Combo", category: "chips", price: 149, mrp: 199, weight: "300g", rating: 4.5, reviews: 72, image: "🍟", badge: "offer", stock: false, desc: "Spicy chips combo pack - 3 flavors in one!" },
 ];
 
-// ===== Cart =====
+
+// ===== CART STATE =====
 let cart = JSON.parse(localStorage.getItem('payel_cart')) || [];
+let wishlist = JSON.parse(localStorage.getItem('payel_wishlist')) || [];
 
-function updateCartCount() {
-    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-    document.getElementById('cartCount').textContent = count;
+// ===== UTILITIES =====
+function saveCart() { localStorage.setItem('payel_cart', JSON.stringify(cart)); updateCartUI(); }
+function saveWishlist() { localStorage.setItem('payel_wishlist', JSON.stringify(wishlist)); updateWishlistUI(); }
+function getDiscount(price, mrp) { return Math.round(((mrp - price) / mrp) * 100); }
+function getCategoryEmoji(cat) {
+    const map = { chanachur:'🥨', bhujia:'🍿', mixture:'🥜', namkeen:'🍘', peanut:'🥜', moongdal:'🫘', chips:'🍟', papad:'🫓' };
+    return map[cat] || '📦';
 }
 
+// ===== TOAST =====
+function showToast(message, icon = 'check-circle') {
+    const container = document.getElementById('toastContainer');
+    if (!container) return;
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerHTML = `<i class="fas fa-${icon}"></i> ${message}`;
+    container.appendChild(toast);
+    setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateX(100%)'; toast.style.transition = '0.3s'; setTimeout(() => toast.remove(), 300); }, 3000);
+}
 
+// ===== CART LOGIC =====
 function addToCart(productId) {
-    const product = products.find(p => p.id === productId);
-    if (!product) return;
-    
+    const product = PRODUCTS.find(p => p.id === productId);
+    if (!product || !product.stock) return;
     const existing = cart.find(item => item.id === productId);
-    if (existing) {
-        existing.quantity++;
-    } else {
-        cart.push({ ...product, quantity: 1 });
-    }
-    
-    localStorage.setItem('payel_cart', JSON.stringify(cart));
-    updateCartCount();
-    showToast(`${product.name} added to cart!`);
-}
-
-function buyNow(productId) {
-    addToCart(productId);
-    window.location.href = 'pages/cart.html';
+    if (existing) { existing.qty++; }
+    else { cart.push({ id: product.id, qty: 1 }); }
+    saveCart();
+    showToast(`${product.name} added to cart`);
 }
 
 function removeFromCart(productId) {
     cart = cart.filter(item => item.id !== productId);
-    localStorage.setItem('payel_cart', JSON.stringify(cart));
-    updateCartCount();
+    saveCart();
 }
 
-function updateQuantity(productId, change) {
+function updateQty(productId, delta) {
     const item = cart.find(i => i.id === productId);
-    if (item) {
-        item.quantity += change;
-        if (item.quantity <= 0) {
-            removeFromCart(productId);
-        } else {
-            localStorage.setItem('payel_cart', JSON.stringify(cart));
-            updateCartCount();
-        }
+    if (!item) return;
+    item.qty += delta;
+    if (item.qty <= 0) { removeFromCart(productId); return; }
+    saveCart();
+}
+
+function getCartTotal() {
+    return cart.reduce((sum, item) => {
+        const p = PRODUCTS.find(pr => pr.id === item.id);
+        return sum + (p ? p.price * item.qty : 0);
+    }, 0);
+}
+
+function getCartCount() { return cart.reduce((sum, item) => sum + item.qty, 0); }
+
+function updateCartUI() {
+    const countEl = document.getElementById('cartCount');
+    const itemCountEl = document.getElementById('cartItemCount');
+    const totalEl = document.getElementById('cartTotal');
+    const bodyEl = document.getElementById('cartBody');
+    const footerEl = document.getElementById('cartFooter');
+    const emptyEl = document.getElementById('cartEmpty');
+
+    const count = getCartCount();
+    if (countEl) countEl.textContent = count;
+    if (itemCountEl) itemCountEl.textContent = `(${cart.length} items)`;
+
+    if (!bodyEl) return;
+
+    if (cart.length === 0) {
+        if (emptyEl) emptyEl.style.display = 'block';
+        if (footerEl) footerEl.style.display = 'none';
+        bodyEl.innerHTML = '';
+        bodyEl.appendChild(emptyEl || document.createElement('div'));
+        return;
     }
+
+    if (emptyEl) emptyEl.style.display = 'none';
+    if (footerEl) footerEl.style.display = 'block';
+    if (totalEl) totalEl.textContent = `₹${getCartTotal()}`;
+
+    bodyEl.innerHTML = cart.map(item => {
+        const p = PRODUCTS.find(pr => pr.id === item.id);
+        if (!p) return '';
+        return `<div class="cart-item">
+            <div class="cart-item-img">${p.image}</div>
+            <div class="cart-item-details">
+                <div class="cart-item-name">${p.name}</div>
+                <div class="cart-item-meta">${p.weight} · ${p.category}</div>
+                <div class="cart-item-bottom">
+                    <span class="cart-item-price">₹${p.price * item.qty}</span>
+                    <div class="qty-control">
+                        <button onclick="updateQty(${p.id}, -1)">−</button>
+                        <span>${item.qty}</span>
+                        <button onclick="updateQty(${p.id}, 1)">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    }).join('');
 }
 
-// ===== Toast Notification =====
-function showToast(message) {
-    const toast = document.createElement('div');
-    toast.className = 'toast-notification';
-    toast.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
-    toast.style.cssText = `
-        position: fixed; top: 80px; right: 20px; background: #10b981; color: white;
-        padding: 14px 24px; border-radius: 10px; font-size: 0.9rem; z-index: 10000;
-        display: flex; align-items: center; gap: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-        animation: slideDown 0.3s ease; font-family: 'Poppins', sans-serif;
-    `;
-    document.body.appendChild(toast);
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateX(100%)';
-        toast.style.transition = 'all 0.3s ease';
-        setTimeout(() => toast.remove(), 300);
-    }, 3000);
+
+// ===== WISHLIST =====
+function toggleWishlist(productId) {
+    const idx = wishlist.indexOf(productId);
+    if (idx > -1) { wishlist.splice(idx, 1); showToast('Removed from wishlist', 'heart-broken'); }
+    else { wishlist.push(productId); showToast('Added to wishlist', 'heart'); }
+    saveWishlist();
 }
 
-// ===== Hero Slider =====
+function updateWishlistUI() {
+    const el = document.getElementById('wishlistCount');
+    if (el) el.textContent = wishlist.length;
+    document.querySelectorAll('.product-wishlist').forEach(btn => {
+        const id = parseInt(btn.dataset.id);
+        btn.classList.toggle('active', wishlist.includes(id));
+        btn.querySelector('i').className = wishlist.includes(id) ? 'fas fa-heart' : 'far fa-heart';
+    });
+}
+
+// ===== PRODUCT CARD RENDERER =====
+function renderProductCard(product) {
+    const discount = getDiscount(product.price, product.mrp);
+    const isWished = wishlist.includes(product.id);
+    return `<div class="product-card" data-id="${product.id}">
+        ${product.badge ? `<span class="product-badge ${product.badge}">${product.badge === 'best' ? 'Bestseller' : product.badge === 'new' ? 'New' : discount + '% OFF'}</span>` : ''}
+        <button class="product-wishlist ${isWished ? 'active' : ''}" data-id="${product.id}" onclick="toggleWishlist(${product.id})">
+            <i class="${isWished ? 'fas' : 'far'} fa-heart"></i>
+        </button>
+        <a href="pages/product-detail.html?id=${product.id}" class="product-img"><span>${product.image}</span></a>
+        <div class="product-info">
+            <span class="product-weight">${product.weight}</span>
+            <a href="pages/product-detail.html?id=${product.id}" class="product-name">${product.name}</a>
+            <div class="product-rating"><i class="fas fa-star"></i> ${product.rating} <span>(${product.reviews})</span></div>
+            <div class="product-price">
+                <span class="price-current">₹${product.price}</span>
+                <span class="price-original">₹${product.mrp}</span>
+                <span class="price-discount">${discount}% OFF</span>
+            </div>
+            ${product.stock ? `<div class="product-stock">In Stock</div>` : `<div class="product-stock out">Out of Stock</div>`}
+            <button class="product-add" onclick="addToCart(${product.id})" ${!product.stock ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>
+                ${product.stock ? 'Add' : 'Sold Out'}
+            </button>
+        </div>
+    </div>`;
+}
+
+// ===== RENDER PRODUCT ROWS =====
+function renderProductSection(containerId, products) {
+    const el = document.getElementById(containerId);
+    if (!el) return;
+    el.innerHTML = products.map(p => renderProductCard(p)).join('');
+}
+
+// ===== HERO SLIDER =====
 let currentSlide = 0;
-const slides = document.querySelectorAll('.hero-slide');
-const dotsContainer = document.getElementById('heroDots');
+let slideInterval;
 
-function initSlider() {
-    if (!dotsContainer || slides.length === 0) return;
-    slides.forEach((_, index) => {
+function initHeroSlider() {
+    const slides = document.querySelectorAll('.hero-slide');
+    const dotsContainer = document.getElementById('heroDots');
+    if (!slides.length || !dotsContainer) return;
+
+    // Create dots
+    slides.forEach((_, i) => {
         const dot = document.createElement('div');
-        dot.className = `hero-dot ${index === 0 ? 'active' : ''}`;
-        dot.onclick = () => goToSlide(index);
+        dot.className = `hero-dot ${i === 0 ? 'active' : ''}`;
+        dot.onclick = () => goToSlide(i);
         dotsContainer.appendChild(dot);
     });
+
+    slideInterval = setInterval(() => goToSlide(currentSlide + 1), 5000);
 }
 
 function goToSlide(index) {
-    slides[currentSlide].classList.remove('active');
-    currentSlide = index;
-    if (currentSlide >= slides.length) currentSlide = 0;
-    if (currentSlide < 0) currentSlide = slides.length - 1;
-    slides[currentSlide].classList.add('active');
-    
+    const slides = document.querySelectorAll('.hero-slide');
     const dots = document.querySelectorAll('.hero-dot');
-    dots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
-}
+    if (!slides.length) return;
 
-function nextSlide() { goToSlide(currentSlide + 1); }
-function prevSlide() { goToSlide(currentSlide - 1); }
-
-// Auto slide
-setInterval(nextSlide, 5000);
-
-
-// ===== Mobile Menu =====
-const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-const navMenu = document.getElementById('navMenu');
-
-if (mobileMenuBtn) {
-    mobileMenuBtn.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        const icon = mobileMenuBtn.querySelector('i');
-        icon.className = navMenu.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
-    });
-}
-
-// ===== Dark Mode =====
-const darkModeToggle = document.getElementById('darkModeToggle');
-let isDarkMode = localStorage.getItem('payel_dark_mode') === 'true';
-
-function toggleDarkMode() {
-    isDarkMode = !isDarkMode;
-    document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
-    localStorage.setItem('payel_dark_mode', isDarkMode);
-    const icon = darkModeToggle.querySelector('i');
-    icon.className = isDarkMode ? 'fas fa-sun' : 'fas fa-moon';
-}
-
-if (darkModeToggle) {
-    darkModeToggle.addEventListener('click', toggleDarkMode);
-    // Apply saved theme
-    if (isDarkMode) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        darkModeToggle.querySelector('i').className = 'fas fa-sun';
-    }
-}
-
-// ===== Notification Bar =====
-function closeNotification() {
-    const bar = document.getElementById('notificationBar');
-    if (bar) {
-        bar.style.transform = 'translateY(-100%)';
-        bar.style.transition = 'transform 0.3s ease';
-        setTimeout(() => bar.style.display = 'none', 300);
-    }
-}
-
-// ===== Back to Top =====
-const backToTop = document.getElementById('backToTop');
-window.addEventListener('scroll', () => {
-    if (backToTop) {
-        backToTop.classList.toggle('visible', window.scrollY > 500);
-    }
-    // Header shadow
-    const header = document.getElementById('header');
-    if (header) {
-        header.style.boxShadow = window.scrollY > 50 ? '0 4px 20px rgba(0,0,0,0.1)' : 'none';
-    }
-});
-
-function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// ===== Countdown Timer =====
-function updateTimer() {
-    const target = new Date();
-    target.setDate(target.getDate() + 15);
-    
-    function tick() {
-        const now = new Date();
-        const diff = target - now;
-        
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        
-        const daysEl = document.getElementById('days');
-        const hoursEl = document.getElementById('hours');
-        const minutesEl = document.getElementById('minutes');
-        const secondsEl = document.getElementById('seconds');
-        
-        if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
-        if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
-        if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
-        if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
-    }
-    
-    tick();
-    setInterval(tick, 1000);
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (index + slides.length) % slides.length;
+    slides[currentSlide].classList.add('active');
+    dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
 }
 
 
-// ===== Quick View Modal =====
-function openQuickView(productId) {
-    const product = products.find(p => p.id === productId);
-    if (!product) return;
-    
-    const modal = document.getElementById('quickViewModal');
-    const body = document.getElementById('quickViewBody');
-    
-    body.innerHTML = `
-        <div class="quick-view-grid">
-            <div class="quick-view-image">
-                <div class="product-placeholder" style="font-size:8rem;">${product.image}</div>
-            </div>
-            <div class="quick-view-info">
-                <span class="product-category">${product.category}</span>
-                <h2 style="font-family:var(--font-heading);margin:10px 0;font-size:1.5rem;">${product.name}</h2>
-                <div class="product-rating">
-                    <div class="stars">${'★'.repeat(product.rating)}${'☆'.repeat(5-product.rating)}</div>
-                    <span>(${product.reviews} reviews)</span>
-                </div>
-                <div class="product-weight" style="margin:10px 0;">${product.weight}</div>
-                <div class="product-price" style="margin:15px 0;">
-                    <span class="current-price" style="font-size:1.8rem;">₹${product.price}</span>
-                    <span class="original-price">₹${product.originalPrice}</span>
-                    <span style="color:#10b981;font-weight:600;font-size:0.9rem;">${Math.round((1-product.price/product.originalPrice)*100)}% OFF</span>
-                </div>
-                <p style="color:var(--text-light);margin-bottom:15px;font-size:0.9rem;">Premium quality ${product.category.toLowerCase()} made with fresh ingredients. FSSAI certified, hygienically packed for your safety.</p>
-                <div style="display:flex;gap:10px;margin-top:20px;">
-                    <button class="btn btn-cart" onclick="addToCart(${product.id});closeQuickView()"><i class="fas fa-cart-plus"></i> Add to Cart</button>
-                    <button class="btn btn-buy" onclick="buyNow(${product.id})">Buy Now</button>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
+// ===== SEARCH =====
+function initSearch() {
+    const input = document.getElementById('searchInput');
+    const dropdown = document.getElementById('searchDropdown');
+    if (!input || !dropdown) return;
 
-function closeQuickView() {
-    const modal = document.getElementById('quickViewModal');
-    modal.classList.remove('active');
-    document.body.style.overflow = 'auto';
-}
+    input.addEventListener('input', () => {
+        const q = input.value.toLowerCase().trim();
+        if (q.length < 2) { dropdown.classList.remove('active'); return; }
 
-// ===== Search =====
-const searchInput = document.getElementById('searchInput');
-const searchSuggestions = document.getElementById('searchSuggestions');
+        const results = PRODUCTS.filter(p =>
+            p.name.toLowerCase().includes(q) ||
+            p.category.includes(q)
+        ).slice(0, 6);
 
-if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
-        const query = e.target.value.toLowerCase().trim();
-        if (query.length < 2) {
-            searchSuggestions.style.display = 'none';
-            return;
-        }
-        
-        const results = products.filter(p => 
-            p.name.toLowerCase().includes(query) || 
-            p.category.toLowerCase().includes(query)
-        );
-        
-        if (results.length > 0) {
-            searchSuggestions.style.display = 'block';
-            searchSuggestions.innerHTML = results.slice(0, 5).map(p => `
-                <a href="pages/products.html?id=${p.id}" style="display:flex;align-items:center;gap:12px;padding:12px 15px;border-bottom:1px solid var(--border);transition:var(--transition);">
+        if (results.length === 0) {
+            dropdown.innerHTML = '<div style="padding:16px;text-align:center;color:#999;font-size:0.85rem;">No results found</div>';
+        } else {
+            dropdown.innerHTML = results.map(p => `
+                <a href="pages/product-detail.html?id=${p.id}" style="display:flex;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid #f0f0f0;transition:background 0.15s;">
                     <span style="font-size:1.5rem;">${p.image}</span>
-                    <div>
-                        <div style="font-weight:500;font-size:0.9rem;">${p.name}</div>
-                        <div style="font-size:0.8rem;color:var(--text-muted);">${p.category} · ₹${p.price}</div>
+                    <div style="flex:1;">
+                        <div style="font-size:0.85rem;font-weight:500;">${p.name}</div>
+                        <div style="font-size:0.75rem;color:#999;">${p.category} · ${p.weight}</div>
                     </div>
+                    <strong style="font-size:0.9rem;color:#C41E3A;">₹${p.price}</strong>
                 </a>
             `).join('');
-        } else {
-            searchSuggestions.style.display = 'block';
-            searchSuggestions.innerHTML = '<div style="padding:15px;text-align:center;color:var(--text-muted);">No products found</div>';
         }
+        dropdown.classList.add('active');
     });
-    
-    // Close suggestions on click outside
+
+    // Close on outside click
     document.addEventListener('click', (e) => {
-        if (!e.target.closest('.search-bar')) {
-            searchSuggestions.style.display = 'none';
+        if (!e.target.closest('.search-wrapper')) dropdown.classList.remove('active');
+    });
+
+    // Keyboard shortcut Ctrl+K
+    document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+            e.preventDefault();
+            input.focus();
         }
     });
 }
 
-// ===== Newsletter =====
-function subscribeNewsletter(e) {
-    e.preventDefault();
-    const input = e.target.querySelector('input');
-    showToast(`Subscribed successfully! Welcome aboard!`);
-    input.value = '';
+// ===== CART SIDEBAR TOGGLE =====
+function initCartSidebar() {
+    const toggle = document.getElementById('cartToggle');
+    const sidebar = document.getElementById('cartSidebar');
+    const overlay = document.getElementById('cartOverlay');
+    const close = document.getElementById('cartClose');
+
+    if (!toggle || !sidebar) return;
+
+    const openCart = () => { sidebar.classList.add('active'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; };
+    const closeCart = () => { sidebar.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; };
+
+    toggle.addEventListener('click', openCart);
+    if (close) close.addEventListener('click', closeCart);
+    if (overlay) overlay.addEventListener('click', closeCart);
 }
 
-// ===== Wishlist =====
-function toggleWishlist(btn) {
-    btn.classList.toggle('active');
-    const icon = btn.querySelector('i');
-    icon.className = btn.classList.contains('active') ? 'fas fa-heart' : 'far fa-heart';
+// ===== MOBILE MENU =====
+function initMobileMenu() {
+    const btn = document.getElementById('mobileMenuBtn');
+    const menu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('mobileOverlay');
+    const close = document.getElementById('mobileClose');
+
+    if (!btn || !menu) return;
+
+    const openMenu = () => { menu.classList.add('active'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; };
+    const closeMenu = () => { menu.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; };
+
+    btn.addEventListener('click', openMenu);
+    if (close) close.addEventListener('click', closeMenu);
+    if (overlay) overlay.addEventListener('click', closeMenu);
 }
 
-// Attach wishlist handlers
-document.querySelectorAll('.wishlist-btn').forEach(btn => {
-    btn.addEventListener('click', () => toggleWishlist(btn));
-});
+// ===== TOP BAR =====
+function closeTopBar() {
+    const bar = document.getElementById('topBar');
+    if (bar) { bar.style.transform = 'translateY(-100%)'; bar.style.transition = '0.3s'; setTimeout(() => bar.style.display = 'none', 300); }
+}
 
-// ===== Scroll Animations =====
-function handleScrollAnimations() {
-    const elements = document.querySelectorAll('.category-card, .product-card, .feature-card, .testimonial-card, .blog-card');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, { threshold: 0.1 });
-    
-    elements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'all 0.5s ease';
-        observer.observe(el);
+// ===== HEADER SCROLL SHADOW =====
+function initHeaderScroll() {
+    const header = document.getElementById('header');
+    if (!header) return;
+    window.addEventListener('scroll', () => {
+        header.style.boxShadow = window.scrollY > 10 ? '0 2px 10px rgba(0,0,0,0.08)' : 'none';
     });
 }
 
-// ===== Quick View Grid Style =====
-const quickViewStyle = document.createElement('style');
-quickViewStyle.textContent = `
-    .quick-view-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; }
-    .quick-view-image { display: flex; align-items: center; justify-content: center; background: var(--bg-light); border-radius: var(--radius); padding: 40px; }
-    @media (max-width: 768px) { .quick-view-grid { grid-template-columns: 1fr; } }
-`;
-document.head.appendChild(quickViewStyle);
 
-// ===== Initialize =====
+// ===== INITIALIZE =====
 document.addEventListener('DOMContentLoaded', () => {
-    initSlider();
-    updateCartCount();
-    updateTimer();
-    handleScrollAnimations();
+    // Hero Slider
+    initHeroSlider();
+
+    // Search
+    initSearch();
+
+    // Cart Sidebar
+    initCartSidebar();
+
+    // Mobile Menu
+    initMobileMenu();
+
+    // Header Scroll
+    initHeaderScroll();
+
+    // Render product sections on homepage
+    const bestSellers = PRODUCTS.filter(p => p.badge === 'best');
+    const newArrivals = PRODUCTS.filter(p => p.badge === 'new');
+    const topChanachur = PRODUCTS.filter(p => p.category === 'chanachur');
+    const popularBhujia = PRODUCTS.filter(p => p.category === 'bhujia' || p.category === 'namkeen');
+
+    renderProductSection('bestSellers', bestSellers);
+    renderProductSection('newArrivals', newArrivals);
+    renderProductSection('topChanachur', topChanachur);
+    renderProductSection('popularBhujia', popularBhujia);
+
+    // Update cart & wishlist UI
+    updateCartUI();
+    updateWishlistUI();
 });

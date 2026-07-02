@@ -5,90 +5,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Products | Payel Food Products</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/responsive.css">
     <link rel="stylesheet" href="../css/pages.css">
+    <link rel="stylesheet" href="../css/responsive.css">
 </head>
 <body>
     <!-- Header -->
     <header class="header" id="header">
-        <nav class="navbar">
-            <div class="container">
-                <div class="nav-content">
-                    <div class="logo">
-                        <a href="../index.html">
-                            <span class="logo-icon">🍜</span>
-                            <div class="logo-text"><h1>Payel Food</h1><span>Premium Quality Since 2020</span></div>
-                        </a>
+        <div class="container">
+            <div class="header-inner">
+                <a href="../index.html" class="logo">
+                    <span class="logo-icon">🍜</span>
+                    <div class="logo-text"><strong>Payel Food</strong><small>Premium Snacks</small></div>
+                </a>
+                <div class="search-wrapper" id="searchWrapper">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search products..." autocomplete="off">
                     </div>
-                    <div class="nav-actions">
-                        <a href="account.html" class="nav-icon"><i class="fas fa-user"></i></a>
-                        <a href="wishlist.html" class="nav-icon"><i class="fas fa-heart"></i><span class="badge">0</span></a>
-                        <a href="cart.html" class="nav-icon cart-icon"><i class="fas fa-shopping-cart"></i><span class="badge" id="cartCount">0</span></a>
-                        <button class="dark-mode-toggle" id="darkModeToggle"><i class="fas fa-moon"></i></button>
-                    </div>
+                    <div class="search-dropdown" id="searchDropdown"></div>
+                </div>
+                <div class="header-actions">
+                    <a href="account.html" class="header-btn"><i class="fas fa-user"></i></a>
+                    <a href="wishlist.html" class="header-btn"><i class="fas fa-heart"></i><span class="count-badge" id="wishlistCount">0</span></a>
+                    <a href="cart.html" class="header-btn"><i class="fas fa-shopping-bag"></i><span class="count-badge" id="cartCount">0</span></a>
                 </div>
             </div>
-        </nav>
+        </div>
     </header>
 
-
     <!-- Breadcrumb -->
-    <section class="breadcrumb-section">
+    <div class="breadcrumb-bar">
         <div class="container">
             <nav class="breadcrumb">
-                <a href="../index.html">Home</a> <i class="fas fa-chevron-right"></i> <span>Products</span>
+                <a href="../index.html">Home</a>
+                <i class="fas fa-chevron-right"></i>
+                <span id="breadcrumbCurrent">All Products</span>
             </nav>
-            <h1>All Products</h1>
         </div>
-    </section>
+    </div>
 
-    <!-- Products Section -->
-    <section class="page-section">
+    <!-- Page Content -->
+    <section class="section">
         <div class="container">
-            <div class="products-layout">
+            <div class="page-layout">
                 <!-- Sidebar Filters -->
-                <aside class="filter-sidebar">
-                    <div class="filter-group">
-                        <h3>Categories</h3>
-                        <label><input type="checkbox" value="chanachur" onchange="filterProducts()"> Chanachur</label>
-                        <label><input type="checkbox" value="bhujia" onchange="filterProducts()"> Bhujia</label>
-                        <label><input type="checkbox" value="mixture" onchange="filterProducts()"> Mixture</label>
-                        <label><input type="checkbox" value="namkeen" onchange="filterProducts()"> Namkeen</label>
-                        <label><input type="checkbox" value="peanut" onchange="filterProducts()"> Peanut</label>
-                        <label><input type="checkbox" value="moong dal" onchange="filterProducts()"> Moong Dal</label>
-                        <label><input type="checkbox" value="chips" onchange="filterProducts()"> Chips</label>
-                        <label><input type="checkbox" value="papad" onchange="filterProducts()"> Papad</label>
+                <aside class="filter-sidebar" id="filterSidebar">
+                    <div class="filter-header">
+                        <h3>Filters</h3>
+                        <button class="filter-clear" onclick="clearFilters()">Clear All</button>
                     </div>
+
                     <div class="filter-group">
-                        <h3>Price Range</h3>
-                        <label><input type="radio" name="price" value="0-100" onchange="filterProducts()"> Under ₹100</label>
-                        <label><input type="radio" name="price" value="100-200" onchange="filterProducts()"> ₹100 - ₹200</label>
-                        <label><input type="radio" name="price" value="200-300" onchange="filterProducts()"> ₹200 - ₹300</label>
-                        <label><input type="radio" name="price" value="300-500" onchange="filterProducts()"> ₹300 - ₹500</label>
-                        <label><input type="radio" name="price" value="all" onchange="filterProducts()" checked> All Prices</label>
+                        <h4>Category</h4>
+                        <label class="filter-check"><input type="checkbox" value="chanachur" onchange="applyFilters()"> Chanachur</label>
+                        <label class="filter-check"><input type="checkbox" value="bhujia" onchange="applyFilters()"> Bhujia</label>
+                        <label class="filter-check"><input type="checkbox" value="mixture" onchange="applyFilters()"> Mixture</label>
+                        <label class="filter-check"><input type="checkbox" value="namkeen" onchange="applyFilters()"> Namkeen</label>
+                        <label class="filter-check"><input type="checkbox" value="peanut" onchange="applyFilters()"> Peanut</label>
+                        <label class="filter-check"><input type="checkbox" value="moongdal" onchange="applyFilters()"> Moong Dal</label>
+                        <label class="filter-check"><input type="checkbox" value="chips" onchange="applyFilters()"> Chips</label>
+                        <label class="filter-check"><input type="checkbox" value="papad" onchange="applyFilters()"> Papad</label>
                     </div>
+
                     <div class="filter-group">
-                        <h3>Sort By</h3>
-                        <select id="sortBy" onchange="filterProducts()">
-                            <option value="popular">Popularity</option>
-                            <option value="price-low">Price: Low to High</option>
-                            <option value="price-high">Price: High to Low</option>
-                            <option value="newest">Newest First</option>
-                            <option value="rating">Highest Rated</option>
-                        </select>
+                        <h4>Price Range</h4>
+                        <label class="filter-check"><input type="radio" name="price" value="all" onchange="applyFilters()" checked> All Prices</label>
+                        <label class="filter-check"><input type="radio" name="price" value="0-100" onchange="applyFilters()"> Under ₹100</label>
+                        <label class="filter-check"><input type="radio" name="price" value="100-200" onchange="applyFilters()"> ₹100 - ₹200</label>
+                        <label class="filter-check"><input type="radio" name="price" value="200-500" onchange="applyFilters()"> ₹200 - ₹500</label>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>Availability</h4>
+                        <label class="filter-check"><input type="checkbox" id="stockFilter" onchange="applyFilters()"> In Stock Only</label>
                     </div>
                 </aside>
 
-                <!-- Products Grid -->
-                <div class="products-main">
+                <!-- Products Area -->
+                <div class="products-area">
                     <div class="products-toolbar">
-                        <span id="productCount">10 Products</span>
-                        <div class="view-toggle">
-                            <button class="active" onclick="setView('grid')"><i class="fas fa-th"></i></button>
-                            <button onclick="setView('list')"><i class="fas fa-list"></i></button>
+                        <div class="toolbar-left">
+                            <button class="filter-toggle-btn" onclick="toggleFilters()"><i class="fas fa-sliders-h"></i> Filters</button>
+                            <span class="product-count" id="productCount">16 products</span>
+                        </div>
+                        <div class="toolbar-right">
+                            <select id="sortSelect" onchange="applyFilters()">
+                                <option value="popular">Popularity</option>
+                                <option value="newest">Newest First</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="discount">Highest Discount</option>
+                                <option value="rating">Highest Rated</option>
+                            </select>
                         </div>
                     </div>
                     <div class="products-grid" id="productsGrid"></div>
@@ -97,87 +108,80 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
+    <!-- Simple Footer -->
+    <footer class="footer-simple">
         <div class="container">
-            <div class="footer-bottom">
-                <div class="footer-bottom-content">
-                    <p>&copy; 2026 Payel Food Products. All Rights Reserved.</p>
-                </div>
-            </div>
+            <p>&copy; 2026 Payel Food Products. All Rights Reserved.</p>
         </div>
     </footer>
 
+    <div id="toastContainer"></div>
     <script src="../js/main.js"></script>
     <script>
-        function filterProducts() {
-            const cats = [...document.querySelectorAll('.filter-sidebar input[type=checkbox]:checked')].map(c => c.value);
-            const priceVal = document.querySelector('input[name=price]:checked')?.value || 'all';
-            const sortVal = document.getElementById('sortBy').value;
-            
-            let filtered = [...products];
-            
-            if (cats.length > 0) {
-                filtered = filtered.filter(p => cats.includes(p.category.toLowerCase()));
-            }
-            
-            if (priceVal !== 'all') {
-                const [min, max] = priceVal.split('-').map(Number);
-                filtered = filtered.filter(p => p.price >= min && p.price <= max);
-            }
-            
-            switch(sortVal) {
-                case 'price-low': filtered.sort((a,b) => a.price - b.price); break;
-                case 'price-high': filtered.sort((a,b) => b.price - a.price); break;
-                case 'rating': filtered.sort((a,b) => b.rating - a.rating); break;
-                case 'newest': filtered.reverse(); break;
-            }
-            
-            renderProducts(filtered);
+    // Products page logic
+    function applyFilters() {
+        const cats = [...document.querySelectorAll('.filter-group input[type=checkbox][value]:checked')].map(c => c.value);
+        const priceVal = document.querySelector('input[name=price]:checked')?.value || 'all';
+        const stockOnly = document.getElementById('stockFilter')?.checked;
+        const sortVal = document.getElementById('sortSelect').value;
+
+        let filtered = [...PRODUCTS];
+
+        // Category filter
+        if (cats.length > 0) {
+            filtered = filtered.filter(p => cats.includes(p.category));
         }
-        
-        function renderProducts(items) {
-            const grid = document.getElementById('productsGrid');
-            document.getElementById('productCount').textContent = `${items.length} Products`;
-            
-            grid.innerHTML = items.map(p => `
-                <div class="product-card">
-                    ${p.badge ? `<div class="product-badge ${p.badge}">${p.badgeText}</div>` : ''}
-                    <button class="wishlist-btn" onclick="toggleWishlist(this)"><i class="far fa-heart"></i></button>
-                    <div class="product-image"><div class="product-placeholder">${p.image}</div></div>
-                    <div class="product-info">
-                        <span class="product-category">${p.category}</span>
-                        <h3 class="product-name">${p.name}</h3>
-                        <div class="product-weight">${p.weight}</div>
-                        <div class="product-rating"><div class="stars">${'★'.repeat(p.rating)}${'☆'.repeat(5-p.rating)}</div><span>(${p.reviews})</span></div>
-                        <div class="product-price"><span class="current-price">₹${p.price}</span><span class="original-price">₹${p.originalPrice}</span></div>
-                        <div class="product-actions">
-                            <button class="btn btn-cart" onclick="addToCart(${p.id})"><i class="fas fa-cart-plus"></i> Add</button>
-                            <button class="btn btn-buy" onclick="buyNow(${p.id})">Buy Now</button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
+
+        // Price filter
+        if (priceVal !== 'all') {
+            const [min, max] = priceVal.split('-').map(Number);
+            filtered = filtered.filter(p => p.price >= min && p.price <= max);
         }
-        
-        function setView(view) {
-            const grid = document.getElementById('productsGrid');
-            if (view === 'list') {
-                grid.style.gridTemplateColumns = '1fr';
-            } else {
-                grid.style.gridTemplateColumns = 'repeat(3, 1fr)';
-            }
+
+        // Stock filter
+        if (stockOnly) filtered = filtered.filter(p => p.stock);
+
+        // Sort
+        switch (sortVal) {
+            case 'price-low': filtered.sort((a, b) => a.price - b.price); break;
+            case 'price-high': filtered.sort((a, b) => b.price - a.price); break;
+            case 'newest': filtered.sort((a, b) => b.id - a.id); break;
+            case 'discount': filtered.sort((a, b) => getDiscount(b.price, b.mrp) - getDiscount(a.price, a.mrp)); break;
+            case 'rating': filtered.sort((a, b) => b.rating - a.rating); break;
+            default: filtered.sort((a, b) => b.reviews - a.reviews);
         }
-        
-        // Check URL params for category filter
-        const urlParams = new URLSearchParams(window.location.search);
-        const catParam = urlParams.get('cat');
-        if (catParam) {
-            const checkbox = document.querySelector(`input[value="${catParam}"]`);
-            if (checkbox) checkbox.checked = true;
+
+        document.getElementById('productCount').textContent = `${filtered.length} product${filtered.length !== 1 ? 's' : ''}`;
+        document.getElementById('productsGrid').innerHTML = filtered.length > 0
+            ? filtered.map(p => renderProductCard(p)).join('')
+            : '<div class="no-results"><i class="fas fa-search"></i><p>No products found. Try different filters.</p></div>';
+    }
+
+    function clearFilters() {
+        document.querySelectorAll('.filter-group input[type=checkbox]').forEach(c => c.checked = false);
+        document.querySelector('input[name=price][value=all]').checked = true;
+        document.getElementById('sortSelect').value = 'popular';
+        applyFilters();
+    }
+
+    function toggleFilters() {
+        document.getElementById('filterSidebar').classList.toggle('active');
+    }
+
+    // Init: check URL params for category
+    document.addEventListener('DOMContentLoaded', () => {
+        const params = new URLSearchParams(window.location.search);
+        const cat = params.get('cat');
+        if (cat) {
+            const cb = document.querySelector(`input[value="${cat}"]`);
+            if (cb) cb.checked = true;
+            document.getElementById('breadcrumbCurrent').textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
         }
-        
-        filterProducts();
+        applyFilters();
+        updateCartUI();
+        updateWishlistUI();
+        initSearch();
+    });
     </script>
 </body>
 </html>

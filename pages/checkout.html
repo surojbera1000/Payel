@@ -5,102 +5,141 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout | Payel Food Products</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/responsive.css">
     <link rel="stylesheet" href="../css/pages.css">
+    <link rel="stylesheet" href="../css/responsive.css">
 </head>
 <body>
-    <header class="header">
-        <nav class="navbar"><div class="container"><div class="nav-content">
-            <div class="logo"><a href="../index.html"><span class="logo-icon">🍜</span><div class="logo-text"><h1>Payel Food</h1><span>Premium Quality Since 2020</span></div></a></div>
-            <div class="checkout-steps">
-                <span class="step active">1. Cart</span>
-                <span class="step active">2. Checkout</span>
-                <span class="step">3. Payment</span>
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="../index.html" class="logo">
+                    <span class="logo-icon">🍜</span>
+                    <div class="logo-text"><strong>Payel Food</strong><small>Premium Snacks</small></div>
+                </a>
+                <div class="checkout-steps">
+                    <span class="step-item done"><i class="fas fa-check"></i> Cart</span>
+                    <span class="step-item active"><i class="fas fa-map-marker-alt"></i> Checkout</span>
+                    <span class="step-item"><i class="fas fa-credit-card"></i> Payment</span>
+                </div>
             </div>
-        </div></div></nav>
+        </div>
     </header>
 
-    <section class="page-section">
+    <section class="section">
         <div class="container">
-            <h1 class="page-title">Checkout</h1>
+            <div class="page-header"><h1>Checkout</h1></div>
+
             <div class="checkout-layout">
-                <div class="checkout-form">
+                <div class="checkout-forms">
+                    <!-- Delivery Address -->
                     <div class="form-section">
                         <h3><i class="fas fa-map-marker-alt"></i> Delivery Address</h3>
-                        <div class="form-grid">
-                            <div class="form-group"><label>Full Name *</label><input type="text" placeholder="Enter your full name" required></div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Full Name *</label><input type="text" placeholder="Your full name" required></div>
                             <div class="form-group"><label>Phone *</label><input type="tel" placeholder="+91 XXXXX XXXXX" required></div>
-                            <div class="form-group full-width"><label>Address *</label><input type="text" placeholder="House/Flat, Street, Landmark" required></div>
+                        </div>
+                        <div class="form-group full"><label>Address *</label><input type="text" placeholder="House/Flat, Street, Landmark" required></div>
+                        <div class="form-row">
                             <div class="form-group"><label>City *</label><input type="text" placeholder="City" required></div>
-                            <div class="form-group"><label>State *</label><input type="text" placeholder="State" required></div>
-                            <div class="form-group"><label>Pincode *</label><input type="text" placeholder="PIN Code" required></div>
+                            <div class="form-group"><label>PIN Code *</label><input type="text" placeholder="700001" required></div>
+                        </div>
+                        <div class="form-group"><label>State *</label>
+                            <select><option>West Bengal</option><option>Maharashtra</option><option>Delhi</option><option>Bihar</option><option>Jharkhand</option><option>Other</option></select>
                         </div>
                     </div>
+
+                    <!-- Payment Method -->
                     <div class="form-section">
                         <h3><i class="fas fa-credit-card"></i> Payment Method</h3>
                         <div class="payment-options">
-                            <label class="payment-option"><input type="radio" name="payment" value="upi" checked><span class="payment-label">📱 UPI (Google Pay, PhonePe, Paytm)</span></label>
-                            <label class="payment-option"><input type="radio" name="payment" value="card"><span class="payment-label">💳 Credit / Debit Card</span></label>
-                            <label class="payment-option"><input type="radio" name="payment" value="netbanking"><span class="payment-label">🏦 Net Banking</span></label>
-                            <label class="payment-option"><input type="radio" name="payment" value="cod"><span class="payment-label">💵 Cash on Delivery</span></label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="upi" checked>
+                                <span>📱 UPI (Google Pay, PhonePe, Paytm)</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="card">
+                                <span>💳 Credit / Debit Card</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="netbanking">
+                                <span>🏦 Net Banking</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="cod">
+                                <span>💵 Cash on Delivery (+₹20)</span>
+                            </label>
                         </div>
                     </div>
-                    <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center;" onclick="placeOrder()">Place Order <i class="fas fa-check"></i></button>
+
+                    <button class="btn btn-primary btn-block" onclick="placeOrder()" style="padding:14px;font-size:0.95rem;">
+                        <i class="fas fa-check-circle"></i> Place Order
+                    </button>
                 </div>
-                <div class="checkout-summary" id="checkoutSummary"></div>
+
+                <!-- Order Summary Sidebar -->
+                <div class="order-summary" id="checkoutSummary"></div>
             </div>
         </div>
     </section>
 
+    <footer class="footer-simple"><div class="container"><p>&copy; 2026 Payel Food Products. All Rights Reserved.</p></div></footer>
+    <div id="toastContainer"></div>
+
     <script src="../js/main.js"></script>
     <script>
-        function renderCheckoutSummary() {
-            const summary = document.getElementById('checkoutSummary');
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const delivery = subtotal > 499 ? 0 : 49;
-            const gst = Math.round(subtotal * 0.05);
-            const total = subtotal + delivery + gst;
-            
-            summary.innerHTML = `
-                <div class="summary-card">
-                    <h3>Order Summary (${cart.length} items)</h3>
-                    ${cart.map(item => `
-                        <div class="checkout-item">
-                            <span>${item.image} ${item.name} × ${item.quantity}</span>
-                            <strong>₹${item.price * item.quantity}</strong>
-                        </div>
-                    `).join('')}
-                    <hr>
-                    <div class="summary-row"><span>Subtotal</span><span>₹${subtotal}</span></div>
-                    <div class="summary-row"><span>Delivery</span><span>${delivery === 0 ? 'FREE' : '₹'+delivery}</span></div>
-                    <div class="summary-row"><span>GST (5%)</span><span>₹${gst}</span></div>
-                    <div class="summary-row total"><span>Total</span><span>₹${total}</span></div>
-                </div>
-            `;
+    function renderCheckoutSummary() {
+        const el = document.getElementById('checkoutSummary');
+        const subtotal = getCartTotal();
+        const delivery = subtotal >= 499 ? 0 : 49;
+        const gst = Math.round(subtotal * 0.05);
+        const total = subtotal + delivery + gst;
+
+        el.innerHTML = `
+            <h3>Order Summary (${cart.length} items)</h3>
+            ${cart.map(item => {
+                const p = PRODUCTS.find(pr => pr.id === item.id);
+                if (!p) return '';
+                return `<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:0.82rem;color:var(--text-light);border-bottom:1px solid var(--border-light);">
+                    <span>${p.image} ${p.name} × ${item.qty}</span>
+                    <strong>₹${p.price * item.qty}</strong>
+                </div>`;
+            }).join('')}
+            <div class="summary-row" style="margin-top:12px;"><span>Subtotal</span><span>₹${subtotal}</span></div>
+            <div class="summary-row"><span>Delivery</span><span class="${delivery === 0 ? 'free' : ''}">${delivery === 0 ? 'FREE' : '₹' + delivery}</span></div>
+            <div class="summary-row"><span>GST (5%)</span><span>₹${gst}</span></div>
+            <div class="summary-row total"><span>Total</span><span>₹${total}</span></div>
+        `;
+    }
+
+    function placeOrder() {
+        if (cart.length === 0) { showToast('Cart is empty!', 'exclamation-circle'); return; }
+
+        const orderId = 'PF' + Date.now().toString().slice(-8);
+        cart = [];
+        saveCart();
+
+        document.querySelector('.checkout-layout').innerHTML = `
+            <div class="empty-state" style="grid-column:1/-1;">
+                <span>✅</span>
+                <h2>Order Placed Successfully!</h2>
+                <p>Thank you for ordering. Your order ID is <strong>#${orderId}</strong></p>
+                <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:16px;">Estimated delivery: 3-5 business days</p>
+                <a href="../index.html" class="btn btn-primary">Continue Shopping <i class="fas fa-arrow-right"></i></a>
+            </div>
+        `;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        if (cart.length === 0) {
+            document.querySelector('.checkout-layout').innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><span>🛒</span><h2>Cart is empty</h2><p>Add products before checkout.</p><a href="products.html" class="btn btn-primary">Browse Products</a></div>`;
+            return;
         }
-        
-        function placeOrder() {
-            if (cart.length === 0) { alert('Cart is empty!'); return; }
-            cart = [];
-            localStorage.setItem('payel_cart', JSON.stringify(cart));
-            showToast('Order placed successfully! 🎉');
-            setTimeout(() => {
-                document.querySelector('.page-section .container').innerHTML = `
-                    <div class="order-success">
-                        <div class="success-icon">✅</div>
-                        <h2>Order Placed Successfully!</h2>
-                        <p>Thank you for your order. You will receive a confirmation on your phone.</p>
-                        <p><strong>Order ID:</strong> #PF${Date.now().toString().slice(-8)}</p>
-                        <a href="../index.html" class="btn btn-primary">Continue Shopping <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                `;
-            }, 1000);
-        }
-        
         renderCheckoutSummary();
+        updateCartUI();
+    });
     </script>
 </body>
 </html>

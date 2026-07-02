@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail | Payel Food Products</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="../index.html" class="logo">
+                    <span class="logo-icon">🍜</span>
+                    <div class="logo-text"><strong>Payel Food</strong><small>Premium Snacks</small></div>
+                </a>
+                <div class="search-wrapper" id="searchWrapper">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search products..." autocomplete="off">
+                    </div>
+                    <div class="search-dropdown" id="searchDropdown"></div>
+                </div>
+                <div class="header-actions">
+                    <a href="account.html" class="header-btn"><i class="fas fa-user"></i></a>
+                    <a href="wishlist.html" class="header-btn"><i class="fas fa-heart"></i><span class="count-badge" id="wishlistCount">0</span></a>
+                    <a href="cart.html" class="header-btn"><i class="fas fa-shopping-bag"></i><span class="count-badge" id="cartCount">0</span></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-bar">
+        <div class="container">
+            <nav class="breadcrumb">
+                <a href="../index.html">Home</a><i class="fas fa-chevron-right"></i>
+                <a href="products.html">Products</a><i class="fas fa-chevron-right"></i>
+                <span id="breadcrumbName">Product</span>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Product Detail -->
+    <section class="section">
+        <div class="container">
+            <div class="product-detail-grid" id="productDetail">
+                <!-- Rendered by JS -->
+            </div>
+
+            <!-- Tabs -->
+            <div class="detail-tabs" id="detailTabs">
+                <div class="tabs-nav">
+                    <button class="tab-btn active" onclick="switchTab('desc')">Description</button>
+                    <button class="tab-btn" onclick="switchTab('ingredients')">Ingredients</button>
+                    <button class="tab-btn" onclick="switchTab('nutrition')">Nutrition</button>
+                    <button class="tab-btn" onclick="switchTab('storage')">Storage</button>
+                    <button class="tab-btn" onclick="switchTab('reviews')">Reviews</button>
+                </div>
+                <div class="tab-content active" id="tab-desc"></div>
+                <div class="tab-content" id="tab-ingredients"></div>
+                <div class="tab-content" id="tab-nutrition"></div>
+                <div class="tab-content" id="tab-storage"></div>
+                <div class="tab-content" id="tab-reviews"></div>
+            </div>
+
+            <!-- Related Products -->
+            <div style="margin-top:40px;">
+                <div class="section-head">
+                    <h2>You May Also Like</h2>
+                    <a href="products.html" class="see-all">See All <i class="fas fa-chevron-right"></i></a>
+                </div>
+                <div class="product-scroll" id="relatedProducts"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-simple"><div class="container"><p>&copy; 2026 Payel Food Products. All Rights Reserved.</p></div></footer>
+    <div id="toastContainer"></div>
+
+    <script src="../js/main.js"></script>
+    <script>
+    let detailQty = 1;
+
+    function renderDetail() {
+        const params = new URLSearchParams(window.location.search);
+        const id = parseInt(params.get('id')) || 1;
+        const product = PRODUCTS.find(p => p.id === id);
+        if (!product) { document.getElementById('productDetail').innerHTML = '<div class="empty-state"><span>😕</span><h2>Product not found</h2><a href="products.html" class="btn btn-primary">Browse Products</a></div>'; return; }
+
+        const discount = getDiscount(product.price, product.mrp);
+        document.title = `${product.name} | Payel Food Products`;
+        document.getElementById('breadcrumbName').textContent = product.name;
+
+        document.getElementById('productDetail').innerHTML = `
+            <div>
+                <div class="product-gallery">
+                    <span class="main-image">${product.image}</span>
+                </div>
+                <div class="product-thumbs">
+                    <div class="thumb active">${product.image}</div>
+                    <div class="thumb">${product.image}</div>
+                    <div class="thumb">${product.image}</div>
+                </div>
+            </div>
+            <div class="detail-info">
+                <h1>${product.name}</h1>
+                <div class="detail-rating">
+                    <i class="fas fa-star"></i> ${product.rating}
+                    <span>(${product.reviews} reviews)</span>
+                    <span style="margin-left:8px;color:${product.stock ? 'var(--green)' : 'var(--primary)'};font-weight:500;">
+                        ${product.stock ? '● In Stock' : '● Out of Stock'}
+                    </span>
+                </div>
+                <div class="detail-price">
+                    <span class="current">₹${product.price}</span>
+                    <span class="mrp">₹${product.mrp}</span>
+                    <span class="discount">${discount}% OFF</span>
+                </div>
+
+                <div class="detail-weight">
+                    <h4>Pack Size</h4>
+                    <div class="weight-options">
+                        <button class="weight-option active">${product.weight}</button>
+                        <button class="weight-option" onclick="this.parentElement.querySelector('.active').classList.remove('active');this.classList.add('active')">500g</button>
+                        <button class="weight-option" onclick="this.parentElement.querySelector('.active').classList.remove('active');this.classList.add('active')">1kg</button>
+                    </div>
+                </div>
+
+                <div class="detail-qty">
+                    <h4>Quantity</h4>
+                    <div class="qty-selector">
+                        <button onclick="changeQty(-1)">−</button>
+                        <span id="detailQtyDisplay">1</span>
+                        <button onclick="changeQty(1)">+</button>
+                    </div>
+                </div>
+
+                <div class="detail-actions">
+                    <button class="btn btn-primary" onclick="addMultipleToCart(${product.id})">
+                        <i class="fas fa-shopping-bag"></i> Add to Cart
+                    </button>
+                    <button class="btn btn-outline" onclick="toggleWishlist(${product.id})">
+                        <i class="far fa-heart"></i> Wishlist
+                    </button>
+                </div>
+
+                <div class="detail-highlights">
+                    <h4>Highlights</h4>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Premium quality ingredients</li>
+                        <li><i class="fas fa-check-circle"></i> Hygienically packed in food-grade material</li>
+                        <li><i class="fas fa-check-circle"></i> No artificial preservatives</li>
+                        <li><i class="fas fa-check-circle"></i> Best before 6 months from packaging</li>
+                        <li><i class="fas fa-check-circle"></i> Free delivery above ₹499</li>
+                    </ul>
+                </div>
+
+                <div class="fssai-badge">
+                    <i class="fas fa-shield-alt"></i> FSSAI Certified | Lic. No. 12345678901234
+                </div>
+            </div>
+        `;
+
+        // Tabs content
+        document.getElementById('tab-desc').innerHTML = `<p>${product.desc}</p><p style="margin-top:10px;">Payel Food Products brings you the authentic taste of Bengal with every bite. Our ${product.name.toLowerCase()} is carefully crafted using traditional recipes and modern food safety standards. Perfect for tea-time snacking, party servings, or gifting to loved ones.</p>`;
+        document.getElementById('tab-ingredients').innerHTML = `<p><strong>Ingredients:</strong> Gram flour, Rice flakes, Peanuts, Lentils, Vegetable oil (Palm/Sunflower), Salt, Spices (Chilli powder, Turmeric, Cumin, Coriander), Sugar, Citric acid.</p><p style="margin-top:8px;"><strong>Allergen Info:</strong> Contains Peanuts, Gram (Chickpea). May contain traces of Mustard and Sesame.</p>`;
+        document.getElementById('tab-nutrition').innerHTML = `<table style="width:100%;border-collapse:collapse;font-size:0.85rem;"><tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 0;font-weight:500;">Energy</td><td>520 kcal per 100g</td></tr><tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 0;font-weight:500;">Protein</td><td>12g per 100g</td></tr><tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 0;font-weight:500;">Total Fat</td><td>28g per 100g</td></tr><tr style="border-bottom:1px solid var(--border);"><td style="padding:8px 0;font-weight:500;">Carbohydrates</td><td>52g per 100g</td></tr><tr><td style="padding:8px 0;font-weight:500;">Sodium</td><td>680mg per 100g</td></tr></table>`;
+        document.getElementById('tab-storage').innerHTML = `<p><strong>Storage:</strong> Store in a cool, dry place away from direct sunlight. Keep sealed after opening for best freshness.</p><p style="margin-top:8px;"><strong>Shelf Life:</strong> 6 months from date of manufacture.</p><p style="margin-top:8px;"><strong>Best consumed within:</strong> 30 days after opening.</p>`;
+        document.getElementById('tab-reviews').innerHTML = `<div style="display:flex;flex-direction:column;gap:12px;"><div style="padding:12px;background:var(--bg);border-radius:8px;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><strong style="font-size:0.85rem;">Anita Roy</strong><span style="color:var(--gold-dark);font-size:0.8rem;">★★★★★</span></div><p style="font-size:0.82rem;color:var(--text-light);">Absolutely love this! Fresh and crunchy every time I order. My family's new favorite snack.</p></div><div style="padding:12px;background:var(--bg);border-radius:8px;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><strong style="font-size:0.85rem;">Subhash Ghosh</strong><span style="color:var(--gold-dark);font-size:0.8rem;">★★★★☆</span></div><p style="font-size:0.82rem;color:var(--text-light);">Great taste and good packaging. Would recommend to anyone who loves authentic Bengali snacks.</p></div></div>`;
+
+        // Related products
+        const related = PRODUCTS.filter(p => p.category === product.category && p.id !== product.id).slice(0, 6);
+        renderProductSection('relatedProducts', related.length > 0 ? related : PRODUCTS.slice(0, 5));
+    }
+
+    function changeQty(delta) {
+        detailQty = Math.max(1, detailQty + delta);
+        document.getElementById('detailQtyDisplay').textContent = detailQty;
+    }
+
+    function addMultipleToCart(productId) {
+        for (let i = 0; i < detailQty; i++) addToCart(productId);
+        detailQty = 1;
+        document.getElementById('detailQtyDisplay').textContent = 1;
+    }
+
+    function switchTab(tab) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        event.target.classList.add('active');
+        document.getElementById(`tab-${tab}`).classList.add('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        renderDetail();
+        updateCartUI();
+        updateWishlistUI();
+        initSearch();
+    });
+    </script>
+</body>
+</html>
