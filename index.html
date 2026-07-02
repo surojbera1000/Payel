@@ -13,15 +13,7 @@
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
-    <!-- ========== TOP NOTIFICATION BAR ========== -->
-    <div class="top-bar" id="topBar">
-        <div class="container">
-            <p>🎉 Use code <strong>PAYEL20</strong> for 20% off your first order! Free delivery above ₹499</p>
-            <button class="top-bar-close" onclick="closeTopBar()"><i class="fas fa-times"></i></button>
-        </div>
-    </div>
-
-    <!-- ========== HEADER (Redesigned - Left Icons + Center Search) ========== -->
+    <!-- ========== HEADER ========== -->
     <header class="header" id="header">
         <div class="container">
             <div class="header-inner">
@@ -52,227 +44,34 @@
                     </div>
                 </a>
 
-                <!-- RIGHT: Empty (balanced layout) -->
+                <!-- RIGHT: Spacer for balance -->
                 <div class="header-right-spacer"></div>
             </div>
-
-            <!-- SEARCH BAR (Full width, prominent) -->
-            <div class="header-search-row">
-                <div class="search-wrapper" id="searchWrapper">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" id="searchInput" placeholder="Search for chanachur, bhujia, mixture, snacks..." autocomplete="off">
-                        <kbd class="search-shortcut">Ctrl+K</kbd>
-                    </div>
-                    <div class="search-dropdown" id="searchDropdown"></div>
-                </div>
-            </div>
-
-            <!-- Category Nav -->
-            <nav class="category-nav" id="categoryNav">
-                <a href="pages/products.html" class="cat-link active">All</a>
-                <a href="pages/products.html?cat=chanachur" class="cat-link">Chanachur</a>
-                <a href="pages/products.html?cat=bhujia" class="cat-link">Bhujia</a>
-                <a href="pages/products.html?cat=mixture" class="cat-link">Mixture</a>
-                <a href="pages/products.html?cat=namkeen" class="cat-link">Namkeen</a>
-                <a href="pages/products.html?cat=peanut" class="cat-link">Peanut</a>
-                <a href="pages/products.html?cat=chips" class="cat-link">Chips</a>
-                <a href="pages/products.html?cat=papad" class="cat-link">Papad</a>
-                <a href="pages/distributor.html" class="cat-link highlight">Become Distributor</a>
-            </nav>
         </div>
     </header>
 
-    <!-- ========== HERO BANNER ========== -->
-    <section class="hero" id="hero">
-        <div class="hero-slider">
-            <div class="hero-slide active" style="background: linear-gradient(135deg, #C41E3A 0%, #8B0000 100%);">
-                <div class="container hero-grid">
-                    <div class="hero-text">
-                        <span class="hero-tag">Premium Quality</span>
-                        <h1>Authentic Bengali<br>Chanachur & Snacks</h1>
-                        <p>Made with fresh ingredients, packed hygienically. Experience the royal taste of tradition.</p>
-                        <a href="pages/products.html" class="btn btn-white">Shop Now <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                    <div class="hero-visual">
-                        <div class="hero-product-circle">
-                            <span class="hero-emoji">🥨</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="hero-slide" style="background: linear-gradient(135deg, #B8860B 0%, #8B6914 100%);">
-                <div class="container hero-grid">
-                    <div class="hero-text">
-                        <span class="hero-tag">Festival Special</span>
-                        <h1>Durga Puja<br>Gift Hampers</h1>
-                        <p>Premium gift packs for your loved ones. Celebrate with taste!</p>
-                        <a href="pages/products.html" class="btn btn-white">View Collection <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                    <div class="hero-visual">
-                        <div class="hero-product-circle golden">
-                            <span class="hero-emoji">🎁</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="hero-slide" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);">
-                <div class="container hero-grid">
-                    <div class="hero-text">
-                        <span class="hero-tag">New Launch</span>
-                        <h1>Premium Bhujia<br>Collection</h1>
-                        <p>Crispy, crunchy & irresistible. Try our newest range today.</p>
-                        <a href="pages/products.html?cat=bhujia" class="btn btn-gold">Explore <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                    <div class="hero-visual">
-                        <div class="hero-product-circle dark">
-                            <span class="hero-emoji">🍿</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="hero-dots" id="heroDots"></div>
-    </section>
-
-    <!-- ========== CATEGORIES GRID ========== -->
-    <section class="section categories-section">
+    <!-- ========== MAIN SEARCH SECTION ========== -->
+    <section class="home-search-section">
         <div class="container">
-            <div class="section-head">
-                <h2>Shop by Category</h2>
-                <a href="pages/products.html" class="see-all">See All <i class="fas fa-chevron-right"></i></a>
-            </div>
-            <div class="category-grid">
-                <a href="pages/products.html?cat=chanachur" class="category-item">
-                    <div class="category-circle"><span>🥨</span></div>
-                    <p>Chanachur</p>
-                </a>
-                <a href="pages/products.html?cat=bhujia" class="category-item">
-                    <div class="category-circle"><span>🍿</span></div>
-                    <p>Bhujia</p>
-                </a>
-                <a href="pages/products.html?cat=mixture" class="category-item">
-                    <div class="category-circle"><span>🥜</span></div>
-                    <p>Mixture</p>
-                </a>
-                <a href="pages/products.html?cat=namkeen" class="category-item">
-                    <div class="category-circle"><span>🍘</span></div>
-                    <p>Namkeen</p>
-                </a>
-                <a href="pages/products.html?cat=peanut" class="category-item">
-                    <div class="category-circle"><span>🥜</span></div>
-                    <p>Peanut</p>
-                </a>
-                <a href="pages/products.html?cat=moongdal" class="category-item">
-                    <div class="category-circle"><span>🫘</span></div>
-                    <p>Moong Dal</p>
-                </a>
-                <a href="pages/products.html?cat=chips" class="category-item">
-                    <div class="category-circle"><span>🍟</span></div>
-                    <p>Chips</p>
-                </a>
-                <a href="pages/products.html?cat=papad" class="category-item">
-                    <div class="category-circle"><span>🫓</span></div>
-                    <p>Papad</p>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== WHY CHOOSE US ========== -->
-    <section class="section trust-section">
-        <div class="container">
-            <div class="trust-grid">
-                <div class="trust-item">
-                    <div class="trust-icon"><i class="fas fa-award"></i></div>
-                    <strong>Premium Quality</strong>
-                    <p>Only finest ingredients</p>
+            <div class="home-search-content">
+                <h1>Find Your Favorite Snacks</h1>
+                <p>Search for chanachur, bhujia, mixture & more</p>
+                <div class="home-search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="homeSearchInput" placeholder="Search products..." autocomplete="off">
+                    <button class="home-search-btn" onclick="homeSearch()">
+                        <i class="fas fa-search"></i> Search
+                    </button>
                 </div>
-                <div class="trust-item">
-                    <div class="trust-icon"><i class="fas fa-leaf"></i></div>
-                    <strong>Fresh & Natural</strong>
-                    <p>No preservatives</p>
-                </div>
-                <div class="trust-item">
-                    <div class="trust-icon"><i class="fas fa-shield-alt"></i></div>
-                    <strong>FSSAI Certified</strong>
-                    <p>100% safe & hygienic</p>
-                </div>
-                <div class="trust-item">
-                    <div class="trust-icon"><i class="fas fa-truck"></i></div>
-                    <strong>Fast Delivery</strong>
-                    <p>Pan India shipping</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== FESTIVAL OFFER BANNER ========== -->
-    <section class="section offer-banner">
-        <div class="container">
-            <div class="offer-card">
-                <div class="offer-content">
-                    <span class="offer-tag">🪔 Festival Special</span>
-                    <h2>Durga Puja Gift Hampers</h2>
-                    <p>Exclusive festive packs starting at ₹299. Free gift wrapping on all orders!</p>
-                    <a href="pages/products.html" class="btn btn-primary">Shop Festive Collection</a>
-                </div>
-                <div class="offer-visual">🎁🪔🎆</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== TESTIMONIALS ========== -->
-    <section class="section">
-        <div class="container">
-            <div class="section-head">
-                <h2>What Customers Say</h2>
-            </div>
-            <div class="testimonial-scroll">
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p>"Best chanachur I've ever had! Reminds me of my grandmother's homemade taste. Fresh and crispy every time."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">R</div>
-                        <div><strong>Rajesh Kumar</strong><span>Kolkata</span></div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p>"Ordered the festival gift pack for Puja. Everyone loved it! Premium quality packaging and amazing taste."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">P</div>
-                        <div><strong>Priya Sharma</strong><span>Delhi</span></div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p>"As a retailer, Payel Food products fly off the shelves. Great margins and quality that customers trust."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">A</div>
-                        <div><strong>Amit Das</strong><span>Howrah</span></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== DISTRIBUTOR CTA ========== -->
-    <section class="section distributor-cta">
-        <div class="container">
-            <div class="distributor-card">
-                <div class="distributor-info">
-                    <h2>Become a Distributor</h2>
-                    <p>Join 200+ partners across India. Attractive margins, marketing support & dedicated business manager.</p>
-                    <div class="distributor-btns">
-                        <a href="pages/distributor.html" class="btn btn-primary">Apply Now</a>
-                        <a href="https://wa.me/919242536487" class="btn btn-outline" target="_blank"><i class="fab fa-whatsapp"></i> Chat with Sales</a>
-                    </div>
-                </div>
-                <div class="distributor-stats">
-                    <div class="d-stat"><strong>200+</strong><span>Partners</span></div>
-                    <div class="d-stat"><strong>15+</strong><span>States</span></div>
-                    <div class="d-stat"><strong>30%+</strong><span>Margins</span></div>
+                <!-- Quick Category Tags -->
+                <div class="home-quick-tags">
+                    <a href="pages/products.html?cat=chanachur" class="home-tag">Chanachur</a>
+                    <a href="pages/products.html?cat=bhujia" class="home-tag">Bhujia</a>
+                    <a href="pages/products.html?cat=mixture" class="home-tag">Mixture</a>
+                    <a href="pages/products.html?cat=namkeen" class="home-tag">Namkeen</a>
+                    <a href="pages/products.html?cat=peanut" class="home-tag">Peanut</a>
+                    <a href="pages/products.html?cat=chips" class="home-tag">Chips</a>
+                    <a href="pages/products.html?cat=papad" class="home-tag">Papad</a>
                 </div>
             </div>
         </div>
@@ -299,17 +98,8 @@
                     <h4>Quick Links</h4>
                     <a href="pages/products.html">All Products</a>
                     <a href="pages/about.html">About Us</a>
-                    <a href="pages/blog.html">Blog</a>
                     <a href="pages/distributor.html">Become Distributor</a>
-                    <a href="pages/career.html">Careers</a>
-                </div>
-                <div class="footer-col">
-                    <h4>Customer Help</h4>
-                    <a href="pages/account.html">My Account</a>
-                    <a href="pages/cart.html">My Cart</a>
-                    <a href="#">Track Order</a>
-                    <a href="#">Shipping Policy</a>
-                    <a href="#">Return & Refund</a>
+                    <a href="pages/contact.html">Contact</a>
                 </div>
                 <div class="footer-col">
                     <h4>Contact Us</h4>
@@ -321,21 +111,8 @@
                     </div>
                 </div>
             </div>
-            <div class="footer-newsletter">
-                <div class="newsletter-text">
-                    <strong>Get offers & updates</strong>
-                    <p>Subscribe to our newsletter for exclusive deals</p>
-                </div>
-                <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Subscribed successfully!')">
-                    <input type="email" placeholder="Enter your email" required>
-                    <button type="submit" class="btn btn-primary">Subscribe</button>
-                </form>
-            </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Payel Food Products. All Rights Reserved. | <a href="#">Privacy</a> | <a href="#">Terms</a></p>
-                <div class="footer-payments">
-                    <span>We Accept:</span> 💳 📱 🏦 UPI | Cards | Net Banking
-                </div>
+                <p>&copy; 2026 Payel Food Products. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
@@ -375,10 +152,7 @@
         </div>
         <div class="mobile-menu-body">
             <a href="index.html" class="mobile-link active"><i class="fas fa-home"></i> Home</a>
-            <a href="pages/products.html" class="mobile-link"><i class="fas fa-th-large"></i> All Products</a>
-            <a href="pages/products.html?cat=chanachur" class="mobile-link"><i class="fas fa-cookie"></i> Chanachur</a>
-            <a href="pages/products.html?cat=bhujia" class="mobile-link"><i class="fas fa-seedling"></i> Bhujia</a>
-            <a href="pages/products.html?cat=mixture" class="mobile-link"><i class="fas fa-mortar-pestle"></i> Mixture</a>
+            <a href="pages/products.html" class="mobile-link"><i class="fas fa-search"></i> Search Products</a>
             <a href="pages/about.html" class="mobile-link"><i class="fas fa-info-circle"></i> About Us</a>
             <a href="pages/distributor.html" class="mobile-link"><i class="fas fa-handshake"></i> Become Distributor</a>
             <a href="pages/contact.html" class="mobile-link"><i class="fas fa-envelope"></i> Contact</a>
@@ -397,5 +171,131 @@
     <div id="toastContainer"></div>
 
     <script src="js/main.js"></script>
+    <script>
+    // Home page search - redirects to products page with search
+    function homeSearch() {
+        const query = document.getElementById('homeSearchInput').value.trim();
+        if (query.length > 0) {
+            window.location.href = 'pages/products.html?cat=' + encodeURIComponent(query);
+        }
+    }
+    // Enter key
+    document.getElementById('homeSearchInput').addEventListener('keyup', function(e) {
+        if (e.key === 'Enter') homeSearch();
+    });
+    // Init
+    document.addEventListener('DOMContentLoaded', () => {
+        updateCartUI();
+        updateWishlistUI();
+        initCartSidebar();
+        initMobileMenu();
+    });
+    </script>
+
+    <style>
+    /* Home Search Section - Clean & Simple */
+    .home-search-section {
+        min-height: calc(100vh - 80px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(180deg, var(--white) 0%, var(--cream) 100%);
+    }
+    .home-search-content {
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+    .home-search-content h1 {
+        font-family: var(--font-heading);
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--text);
+        margin-bottom: 8px;
+    }
+    .home-search-content > p {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        margin-bottom: 28px;
+    }
+    .home-search-box {
+        display: flex;
+        align-items: center;
+        background: var(--white);
+        border: 2px solid var(--border);
+        border-radius: 50px;
+        padding: 5px 5px 5px 20px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        transition: var(--transition);
+    }
+    .home-search-box:focus-within {
+        border-color: var(--primary);
+        box-shadow: 0 4px 20px rgba(196, 30, 58, 0.1);
+    }
+    .home-search-box i {
+        color: var(--text-muted);
+        font-size: 1rem;
+    }
+    .home-search-box input {
+        flex: 1;
+        border: none;
+        background: none;
+        padding: 14px 14px;
+        font-size: 1rem;
+        outline: none;
+        color: var(--text);
+    }
+    .home-search-box input::placeholder {
+        color: var(--text-muted);
+    }
+    .home-search-btn {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 12px 28px;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: var(--transition);
+        white-space: nowrap;
+    }
+    .home-search-btn:hover {
+        background: var(--primary-dark);
+    }
+    .home-quick-tags {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 20px;
+    }
+    .home-tag {
+        padding: 7px 16px;
+        border-radius: 20px;
+        border: 1px solid var(--border);
+        background: var(--white);
+        font-size: 0.82rem;
+        font-weight: 500;
+        color: var(--text-light);
+        transition: var(--transition);
+    }
+    .home-tag:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+        background: var(--primary-light);
+    }
+
+    @media (max-width: 480px) {
+        .home-search-content h1 { font-size: 1.5rem; }
+        .home-search-box { border-radius: 14px; padding: 4px 4px 4px 14px; }
+        .home-search-btn { padding: 11px 18px; font-size: 0.82rem; }
+        .home-tag { padding: 5px 12px; font-size: 0.75rem; }
+    }
+    </style>
 </body>
 </html>
