@@ -20,90 +20,56 @@
                     <span class="logo-icon">🍜</span>
                     <div class="logo-text"><strong>Payel Food</strong><small>Premium Snacks</small></div>
                 </a>
-                <div class="search-wrapper" id="searchWrapper">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" id="searchInput" placeholder="Search products..." autocomplete="off">
-                    </div>
-                    <div class="search-dropdown" id="searchDropdown"></div>
-                </div>
                 <div class="header-actions">
-                    <a href="account.html" class="header-btn"><i class="fas fa-user"></i></a>
-                    <a href="wishlist.html" class="header-btn"><i class="fas fa-heart"></i><span class="count-badge" id="wishlistCount">0</span></a>
-                    <a href="cart.html" class="header-btn"><i class="fas fa-shopping-bag"></i><span class="count-badge" id="cartCount">0</span></a>
+                    <a href="account.html" class="header-icon-btn"><i class="fas fa-user"></i></a>
+                    <a href="wishlist.html" class="header-icon-btn"><i class="fas fa-heart"></i><span class="count-badge" id="wishlistCount">0</span></a>
+                    <a href="cart.html" class="header-icon-btn"><i class="fas fa-shopping-bag"></i><span class="count-badge" id="cartCount">0</span></a>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Breadcrumb -->
-    <div class="breadcrumb-bar">
+    <!-- Product Search Section -->
+    <section class="section" style="padding-top: 24px;">
         <div class="container">
-            <nav class="breadcrumb">
-                <a href="../index.html">Home</a>
-                <i class="fas fa-chevron-right"></i>
-                <span id="breadcrumbCurrent">All Products</span>
-            </nav>
-        </div>
-    </div>
-
-    <!-- Page Content -->
-    <section class="section">
-        <div class="container">
-            <div class="page-layout">
-                <!-- Sidebar Filters -->
-                <aside class="filter-sidebar" id="filterSidebar">
-                    <div class="filter-header">
-                        <h3>Filters</h3>
-                        <button class="filter-clear" onclick="clearFilters()">Clear All</button>
-                    </div>
-
-                    <div class="filter-group">
-                        <h4>Category</h4>
-                        <label class="filter-check"><input type="checkbox" value="chanachur" onchange="applyFilters()"> Chanachur</label>
-                        <label class="filter-check"><input type="checkbox" value="bhujia" onchange="applyFilters()"> Bhujia</label>
-                        <label class="filter-check"><input type="checkbox" value="mixture" onchange="applyFilters()"> Mixture</label>
-                        <label class="filter-check"><input type="checkbox" value="namkeen" onchange="applyFilters()"> Namkeen</label>
-                        <label class="filter-check"><input type="checkbox" value="peanut" onchange="applyFilters()"> Peanut</label>
-                        <label class="filter-check"><input type="checkbox" value="moongdal" onchange="applyFilters()"> Moong Dal</label>
-                        <label class="filter-check"><input type="checkbox" value="chips" onchange="applyFilters()"> Chips</label>
-                        <label class="filter-check"><input type="checkbox" value="papad" onchange="applyFilters()"> Papad</label>
-                    </div>
-
-                    <div class="filter-group">
-                        <h4>Price Range</h4>
-                        <label class="filter-check"><input type="radio" name="price" value="all" onchange="applyFilters()" checked> All Prices</label>
-                        <label class="filter-check"><input type="radio" name="price" value="0-100" onchange="applyFilters()"> Under ₹100</label>
-                        <label class="filter-check"><input type="radio" name="price" value="100-200" onchange="applyFilters()"> ₹100 - ₹200</label>
-                        <label class="filter-check"><input type="radio" name="price" value="200-500" onchange="applyFilters()"> ₹200 - ₹500</label>
-                    </div>
-
-                    <div class="filter-group">
-                        <h4>Availability</h4>
-                        <label class="filter-check"><input type="checkbox" id="stockFilter" onchange="applyFilters()"> In Stock Only</label>
-                    </div>
-                </aside>
-
-                <!-- Products Area -->
-                <div class="products-area">
-                    <div class="products-toolbar">
-                        <div class="toolbar-left">
-                            <button class="filter-toggle-btn" onclick="toggleFilters()"><i class="fas fa-sliders-h"></i> Filters</button>
-                            <span class="product-count" id="productCount">16 products</span>
-                        </div>
-                        <div class="toolbar-right">
-                            <select id="sortSelect" onchange="applyFilters()">
-                                <option value="popular">Popularity</option>
-                                <option value="newest">Newest First</option>
-                                <option value="price-low">Price: Low to High</option>
-                                <option value="price-high">Price: High to Low</option>
-                                <option value="discount">Highest Discount</option>
-                                <option value="rating">Highest Rated</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="products-grid" id="productsGrid"></div>
+            <!-- Big Search Bar -->
+            <div class="product-search-hero">
+                <h2>Find Your Favorite Snacks</h2>
+                <p>Search by product name, category, or keyword</p>
+                <div class="product-search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="productSearchInput" placeholder="Search chanachur, bhujia, mixture, chips..." autocomplete="off" autofocus>
+                    <button class="search-btn" id="searchBtn" onclick="searchProducts()">
+                        <i class="fas fa-search"></i> Search
+                    </button>
                 </div>
+                <!-- Quick Category Tags -->
+                <div class="quick-tags">
+                    <button class="quick-tag" onclick="quickSearch('chanachur')">Chanachur</button>
+                    <button class="quick-tag" onclick="quickSearch('bhujia')">Bhujia</button>
+                    <button class="quick-tag" onclick="quickSearch('mixture')">Mixture</button>
+                    <button class="quick-tag" onclick="quickSearch('namkeen')">Namkeen</button>
+                    <button class="quick-tag" onclick="quickSearch('peanut')">Peanut</button>
+                    <button class="quick-tag" onclick="quickSearch('chips')">Chips</button>
+                    <button class="quick-tag" onclick="quickSearch('papad')">Papad</button>
+                    <button class="quick-tag" onclick="quickSearch('moongdal')">Moong Dal</button>
+                </div>
+            </div>
+
+            <!-- Search Results (Hidden until search) -->
+            <div id="searchResults" style="display: none;">
+                <div class="search-results-header">
+                    <span id="resultsCount"></span>
+                    <button class="clear-search-btn" onclick="clearSearch()"><i class="fas fa-times"></i> Clear Search</button>
+                </div>
+                <div class="products-grid" id="productsGrid"></div>
+            </div>
+
+            <!-- Default State: No products shown -->
+            <div id="defaultState" class="search-default-state">
+                <div class="default-illustration">🔍</div>
+                <h3>Search for products above</h3>
+                <p>Type a product name or tap a category to find what you're looking for</p>
             </div>
         </div>
     </section>
@@ -118,70 +84,267 @@
     <div id="toastContainer"></div>
     <script src="../js/main.js"></script>
     <script>
-    // Products page logic
-    function applyFilters() {
-        const cats = [...document.querySelectorAll('.filter-group input[type=checkbox][value]:checked')].map(c => c.value);
-        const priceVal = document.querySelector('input[name=price]:checked')?.value || 'all';
-        const stockOnly = document.getElementById('stockFilter')?.checked;
-        const sortVal = document.getElementById('sortSelect').value;
-
-        let filtered = [...PRODUCTS];
-
-        // Category filter
-        if (cats.length > 0) {
-            filtered = filtered.filter(p => cats.includes(p.category));
+    // Search Products
+    function searchProducts() {
+        const query = document.getElementById('productSearchInput').value.toLowerCase().trim();
+        if (query.length < 1) {
+            showDefaultState();
+            return;
         }
-
-        // Price filter
-        if (priceVal !== 'all') {
-            const [min, max] = priceVal.split('-').map(Number);
-            filtered = filtered.filter(p => p.price >= min && p.price <= max);
-        }
-
-        // Stock filter
-        if (stockOnly) filtered = filtered.filter(p => p.stock);
-
-        // Sort
-        switch (sortVal) {
-            case 'price-low': filtered.sort((a, b) => a.price - b.price); break;
-            case 'price-high': filtered.sort((a, b) => b.price - a.price); break;
-            case 'newest': filtered.sort((a, b) => b.id - a.id); break;
-            case 'discount': filtered.sort((a, b) => getDiscount(b.price, b.mrp) - getDiscount(a.price, a.mrp)); break;
-            case 'rating': filtered.sort((a, b) => b.rating - a.rating); break;
-            default: filtered.sort((a, b) => b.reviews - a.reviews);
-        }
-
-        document.getElementById('productCount').textContent = `${filtered.length} product${filtered.length !== 1 ? 's' : ''}`;
-        document.getElementById('productsGrid').innerHTML = filtered.length > 0
-            ? filtered.map(p => renderProductCard(p)).join('')
-            : '<div class="no-results"><i class="fas fa-search"></i><p>No products found. Try different filters.</p></div>';
+        performSearch(query);
     }
 
-    function clearFilters() {
-        document.querySelectorAll('.filter-group input[type=checkbox]').forEach(c => c.checked = false);
-        document.querySelector('input[name=price][value=all]').checked = true;
-        document.getElementById('sortSelect').value = 'popular';
-        applyFilters();
+    function quickSearch(term) {
+        document.getElementById('productSearchInput').value = term;
+        performSearch(term);
     }
 
-    function toggleFilters() {
-        document.getElementById('filterSidebar').classList.toggle('active');
+    function performSearch(query) {
+        const results = PRODUCTS.filter(p =>
+            p.name.toLowerCase().includes(query) ||
+            p.category.toLowerCase().includes(query) ||
+            p.desc.toLowerCase().includes(query)
+        );
+
+        document.getElementById('defaultState').style.display = 'none';
+        document.getElementById('searchResults').style.display = 'block';
+
+        document.getElementById('resultsCount').innerHTML = results.length > 0
+            ? `<strong>${results.length}</strong> product${results.length !== 1 ? 's' : ''} found for "<em>${query}</em>"`
+            : `No products found for "<em>${query}</em>"`;
+
+        document.getElementById('productsGrid').innerHTML = results.length > 0
+            ? results.map(p => renderProductCard(p)).join('')
+            : `<div class="no-results">
+                <span style="font-size:3rem;display:block;margin-bottom:12px;">😕</span>
+                <h3>No products found</h3>
+                <p>Try a different search term or browse categories above.</p>
+               </div>`;
     }
 
-    // Init: check URL params for category
+    function clearSearch() {
+        document.getElementById('productSearchInput').value = '';
+        showDefaultState();
+    }
+
+    function showDefaultState() {
+        document.getElementById('searchResults').style.display = 'none';
+        document.getElementById('defaultState').style.display = 'flex';
+    }
+
+    // Enter key to search
+    document.getElementById('productSearchInput').addEventListener('keyup', function(e) {
+        if (e.key === 'Enter') searchProducts();
+        // Live search as user types (after 2 chars)
+        if (this.value.length >= 2) {
+            performSearch(this.value.toLowerCase().trim());
+        } else if (this.value.length === 0) {
+            showDefaultState();
+        }
+    });
+
+    // Check URL params
     document.addEventListener('DOMContentLoaded', () => {
         const params = new URLSearchParams(window.location.search);
         const cat = params.get('cat');
         if (cat) {
-            const cb = document.querySelector(`input[value="${cat}"]`);
-            if (cb) cb.checked = true;
-            document.getElementById('breadcrumbCurrent').textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+            document.getElementById('productSearchInput').value = cat;
+            performSearch(cat);
         }
-        applyFilters();
         updateCartUI();
         updateWishlistUI();
-        initSearch();
     });
     </script>
+
+    <style>
+    /* Product Search Page Specific Styles */
+    .product-search-hero {
+        text-align: center;
+        padding: 30px 0 20px;
+    }
+    .product-search-hero h2 {
+        font-family: var(--font-heading);
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 6px;
+        color: var(--text);
+    }
+    .product-search-hero p {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        margin-bottom: 20px;
+    }
+    .product-search-box {
+        display: flex;
+        align-items: center;
+        max-width: 600px;
+        margin: 0 auto 16px;
+        background: var(--white);
+        border: 2px solid var(--border);
+        border-radius: 50px;
+        padding: 4px 4px 4px 18px;
+        transition: var(--transition);
+    }
+    .product-search-box:focus-within {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(196, 30, 58, 0.08);
+    }
+    .product-search-box i {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+    }
+    .product-search-box input {
+        flex: 1;
+        border: none;
+        background: none;
+        padding: 12px 14px;
+        font-size: 0.95rem;
+        outline: none;
+        color: var(--text);
+    }
+    .product-search-box input::placeholder {
+        color: var(--text-muted);
+    }
+    .search-btn {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 10px 24px;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: var(--transition);
+        white-space: nowrap;
+    }
+    .search-btn:hover {
+        background: var(--primary-dark);
+    }
+
+    /* Quick Tags */
+    .quick-tags {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 14px;
+    }
+    .quick-tag {
+        padding: 6px 14px;
+        border-radius: 20px;
+        border: 1px solid var(--border);
+        background: var(--white);
+        font-size: 0.78rem;
+        font-weight: 500;
+        color: var(--text-light);
+        cursor: pointer;
+        transition: var(--transition);
+    }
+    .quick-tag:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+        background: var(--primary-light);
+    }
+
+    /* Search Results Header */
+    .search-results-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border-light);
+    }
+    .search-results-header span {
+        font-size: 0.88rem;
+        color: var(--text-light);
+    }
+    .search-results-header em {
+        color: var(--primary);
+        font-style: normal;
+        font-weight: 600;
+    }
+    .clear-search-btn {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 6px 12px;
+        border-radius: 20px;
+        border: 1px solid var(--border);
+        background: var(--white);
+        cursor: pointer;
+        transition: var(--transition);
+    }
+    .clear-search-btn:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+    }
+
+    /* Default State */
+    .search-default-state {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 20px;
+        text-align: center;
+    }
+    .default-illustration {
+        font-size: 4rem;
+        margin-bottom: 16px;
+        opacity: 0.6;
+    }
+    .search-default-state h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: var(--text);
+    }
+    .search-default-state p {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        max-width: 350px;
+    }
+
+    /* Products Grid for this page */
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+    .products-grid .product-card {
+        min-width: auto;
+        max-width: none;
+    }
+
+    .no-results {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 40px 20px;
+        color: var(--text-muted);
+    }
+    .no-results h3 { margin-bottom: 4px; }
+    .no-results p { font-size: 0.85rem; }
+
+    @media (min-width: 768px) {
+        .products-grid { grid-template-columns: repeat(3, 1fr); }
+        .product-search-hero h2 { font-size: 1.8rem; }
+    }
+    @media (min-width: 1024px) {
+        .products-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    @media (max-width: 480px) {
+        .product-search-box { border-radius: 12px; padding: 4px 4px 4px 14px; }
+        .search-btn { padding: 10px 16px; }
+        .search-btn span { display: none; }
+        .product-search-hero h2 { font-size: 1.2rem; }
+        .quick-tag { font-size: 0.72rem; padding: 5px 10px; }
+    }
+    </style>
 </body>
 </html>
