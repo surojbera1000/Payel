@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Payel Food Products - Premium quality chanachur, bhujia, mixture & namkeen. Order fresh snacks online with fast delivery across India.">
-    <meta name="keywords" content="Payel Food, chanachur, bhujia, namkeen, snacks online, Indian snacks, premium namkeen">
     <title>Payel Food Products | Premium Snacks & Namkeen</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,11 +21,29 @@
         </div>
     </div>
 
-    <!-- ========== HEADER ========== -->
+    <!-- ========== HEADER (Redesigned - Left Icons + Center Search) ========== -->
     <header class="header" id="header">
         <div class="container">
             <div class="header-inner">
-                <!-- Logo -->
+                <!-- LEFT: Menu Toggle + Wishlist + Cart + Account -->
+                <div class="header-left-actions">
+                    <button class="header-icon-btn" id="mobileMenuBtn" title="Menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <a href="pages/wishlist.html" class="header-icon-btn" title="Wishlist">
+                        <i class="fas fa-heart"></i>
+                        <span class="count-badge" id="wishlistCount">0</span>
+                    </a>
+                    <button class="header-icon-btn" id="cartToggle" title="Cart">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="count-badge" id="cartCount">0</span>
+                    </button>
+                    <a href="pages/account.html" class="header-icon-btn" title="Account">
+                        <i class="fas fa-user"></i>
+                    </a>
+                </div>
+
+                <!-- CENTER: Logo -->
                 <a href="index.html" class="logo">
                     <span class="logo-icon">🍜</span>
                     <div class="logo-text">
@@ -35,35 +52,19 @@
                     </div>
                 </a>
 
-                <!-- Search -->
+                <!-- RIGHT: Empty (balanced layout) -->
+                <div class="header-right-spacer"></div>
+            </div>
+
+            <!-- SEARCH BAR (Full width, prominent) -->
+            <div class="header-search-row">
                 <div class="search-wrapper" id="searchWrapper">
                     <div class="search-box">
                         <i class="fas fa-search"></i>
-                        <input type="text" id="searchInput" placeholder="Search chanachur, bhujia, snacks..." autocomplete="off">
+                        <input type="text" id="searchInput" placeholder="Search for chanachur, bhujia, mixture, snacks..." autocomplete="off">
                         <kbd class="search-shortcut">Ctrl+K</kbd>
                     </div>
                     <div class="search-dropdown" id="searchDropdown"></div>
-                </div>
-
-                <!-- Actions -->
-                <div class="header-actions">
-                    <a href="pages/account.html" class="header-btn" title="My Account">
-                        <i class="fas fa-user"></i>
-                        <span class="header-btn-label">Account</span>
-                    </a>
-                    <a href="pages/wishlist.html" class="header-btn" title="Wishlist">
-                        <i class="fas fa-heart"></i>
-                        <span class="header-btn-label">Wishlist</span>
-                        <span class="count-badge" id="wishlistCount">0</span>
-                    </a>
-                    <button class="header-btn cart-btn" id="cartToggle" title="Cart">
-                        <i class="fas fa-shopping-bag"></i>
-                        <span class="header-btn-label">Cart</span>
-                        <span class="count-badge" id="cartCount">0</span>
-                    </button>
-                    <button class="mobile-menu-btn" id="mobileMenuBtn">
-                        <i class="fas fa-bars"></i>
-                    </button>
                 </div>
             </div>
 
@@ -81,7 +82,6 @@
             </nav>
         </div>
     </header>
-
 
     <!-- ========== HERO BANNER ========== -->
     <section class="hero" id="hero">
@@ -135,8 +135,7 @@
         <div class="hero-dots" id="heroDots"></div>
     </section>
 
-
-    <!-- ========== CATEGORIES GRID (BigBasket-Style) ========== -->
+    <!-- ========== CATEGORIES GRID ========== -->
     <section class="section categories-section">
         <div class="container">
             <div class="section-head">
@@ -180,33 +179,6 @@
         </div>
     </section>
 
-    <!-- ========== BEST SELLERS ========== -->
-    <section class="section">
-        <div class="container">
-            <div class="section-head">
-                <h2>Best Sellers</h2>
-                <a href="pages/products.html?sort=popular" class="see-all">See All <i class="fas fa-chevron-right"></i></a>
-            </div>
-            <div class="product-scroll" id="bestSellers">
-                <!-- Rendered by JS -->
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== NEW ARRIVALS ========== -->
-    <section class="section section-cream">
-        <div class="container">
-            <div class="section-head">
-                <h2>New Arrivals</h2>
-                <a href="pages/products.html?sort=newest" class="see-all">See All <i class="fas fa-chevron-right"></i></a>
-            </div>
-            <div class="product-scroll" id="newArrivals">
-                <!-- Rendered by JS -->
-            </div>
-        </div>
-    </section>
-
-
     <!-- ========== WHY CHOOSE US ========== -->
     <section class="section trust-section">
         <div class="container">
@@ -235,27 +207,6 @@
         </div>
     </section>
 
-    <!-- ========== CATEGORY ROWS (BigBasket-Style) ========== -->
-    <section class="section">
-        <div class="container">
-            <div class="section-head">
-                <h2>Top Chanachur</h2>
-                <a href="pages/products.html?cat=chanachur" class="see-all">See All <i class="fas fa-chevron-right"></i></a>
-            </div>
-            <div class="product-scroll" id="topChanachur"></div>
-        </div>
-    </section>
-
-    <section class="section section-cream">
-        <div class="container">
-            <div class="section-head">
-                <h2>Popular Bhujia</h2>
-                <a href="pages/products.html?cat=bhujia" class="see-all">See All <i class="fas fa-chevron-right"></i></a>
-            </div>
-            <div class="product-scroll" id="popularBhujia"></div>
-        </div>
-    </section>
-
     <!-- ========== FESTIVAL OFFER BANNER ========== -->
     <section class="section offer-banner">
         <div class="container">
@@ -270,7 +221,6 @@
             </div>
         </div>
     </section>
-
 
     <!-- ========== TESTIMONIALS ========== -->
     <section class="section">
@@ -327,25 +277,6 @@
             </div>
         </div>
     </section>
-
-    <!-- ========== APP DOWNLOAD (Future Ready) ========== -->
-    <section class="section section-cream app-section">
-        <div class="container">
-            <div class="app-card">
-                <div class="app-info">
-                    <span class="app-badge">Coming Soon</span>
-                    <h2>Order on the Go!</h2>
-                    <p>Our mobile app is launching soon. Get exclusive app-only offers and faster checkout.</p>
-                    <div class="app-stores">
-                        <span class="store-badge"><i class="fab fa-google-play"></i> Google Play</span>
-                        <span class="store-badge"><i class="fab fa-apple"></i> App Store</span>
-                    </div>
-                </div>
-                <div class="app-visual">📱</div>
-            </div>
-        </div>
-    </section>
-
 
     <!-- ========== FOOTER ========== -->
     <footer class="footer">
@@ -452,6 +383,8 @@
             <a href="pages/distributor.html" class="mobile-link"><i class="fas fa-handshake"></i> Become Distributor</a>
             <a href="pages/contact.html" class="mobile-link"><i class="fas fa-envelope"></i> Contact</a>
             <a href="pages/account.html" class="mobile-link"><i class="fas fa-user"></i> My Account</a>
+            <a href="pages/wishlist.html" class="mobile-link"><i class="fas fa-heart"></i> Wishlist</a>
+            <a href="pages/cart.html" class="mobile-link"><i class="fas fa-shopping-bag"></i> Cart</a>
         </div>
     </nav>
 

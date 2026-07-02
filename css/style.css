@@ -192,7 +192,52 @@ input, select, textarea { font-family: inherit; font-size: inherit; }
 }
 .search-dropdown.active { display: block; }
 
-/* Header Actions */
+/* Header Left Actions (Menu, Wishlist, Cart, Account) */
+.header-left-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.header-icon-btn {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--text);
+    font-size: 1.05rem;
+    transition: var(--transition);
+}
+.header-icon-btn:hover {
+    background: var(--bg);
+    color: var(--primary);
+}
+.count-badge {
+    position: absolute;
+    top: 2px; right: 2px;
+    background: var(--primary);
+    color: white;
+    font-size: 0.6rem;
+    font-weight: 700;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+}
+.header-right-spacer {
+    width: 170px; /* Balance with left actions */
+}
+
+/* Full-Width Search Row */
+.header-search-row {
+    padding: 0 0 10px;
+}
+.header-search-row .search-wrapper {
+    max-width: 100%;
+}
+
+/* Legacy support */
 .header-actions { display: flex; align-items: center; gap: 4px; }
 .header-btn {
     position: relative;
@@ -208,17 +253,6 @@ input, select, textarea { font-family: inherit; font-size: inherit; }
 }
 .header-btn:hover { background: var(--bg); color: var(--primary); }
 .header-btn-label { font-size: 0.65rem; font-weight: 500; }
-.count-badge {
-    position: absolute;
-    top: 2px; right: 6px;
-    background: var(--primary);
-    color: white;
-    font-size: 0.6rem;
-    font-weight: 700;
-    width: 16px; height: 16px;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-}
 .mobile-menu-btn { display: none; font-size: 1.3rem; padding: 8px; color: var(--text); }
 
 
