@@ -134,6 +134,22 @@
         <div class="hero-dots" id="heroDots"></div>
     </section>
 
+    <!-- ========== EXPLORE NOW BANNER (Goes to Store) ========== -->
+    <section class="section">
+        <div class="container">
+            <a href="pages/products.html" class="explore-banner">
+                <div class="explore-content">
+                    <span class="explore-icon">🛒</span>
+                    <div class="explore-text">
+                        <h2>Explore Our Store</h2>
+                        <p>Browse all categories — Chanachur, Bhujia, Mixture, Namkeen & more</p>
+                    </div>
+                    <span class="explore-btn">Explore Now <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+        </div>
+    </section>
+
     <!-- ========== CATEGORIES GRID ========== -->
     <section class="section categories-section">
         <div class="container">
@@ -448,9 +464,64 @@
         transition: var(--transition); white-space: nowrap;
     }
     .home-search-btn:hover { background: var(--primary-dark); }
+
+    /* Explore Now Banner */
+    .explore-banner {
+        display: block;
+        background: linear-gradient(135deg, #C41E3A 0%, #8B0000 60%, #FFD700 100%);
+        border-radius: 16px;
+        padding: 28px 24px;
+        text-decoration: none;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 4px 20px rgba(196, 30, 58, 0.2);
+    }
+    .explore-banner:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(196, 30, 58, 0.3);
+    }
+    .explore-content {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+    .explore-icon {
+        font-size: 2.5rem;
+        flex-shrink: 0;
+    }
+    .explore-text {
+        flex: 1;
+    }
+    .explore-text h2 {
+        font-family: var(--font-heading);
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 4px;
+    }
+    .explore-text p {
+        font-size: 0.82rem;
+        color: rgba(255,255,255,0.85);
+    }
+    .explore-btn {
+        background: white;
+        color: var(--primary);
+        padding: 10px 20px;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
     @media (max-width: 480px) {
         .home-search-box { border-radius: 12px; padding: 3px 3px 3px 12px; }
         .home-search-btn { padding: 9px 14px; font-size: 0.8rem; }
+        .explore-content { flex-wrap: wrap; }
+        .explore-icon { font-size: 2rem; }
+        .explore-text h2 { font-size: 1.1rem; }
+        .explore-btn { margin-top: 10px; width: 100%; justify-content: center; }
     }
     </style>
 </body>

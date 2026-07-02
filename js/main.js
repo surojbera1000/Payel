@@ -3,25 +3,32 @@
    Production-Ready E-commerce Logic
    ======================================== */
 
-// ===== PRODUCT DATA =====
-const PRODUCTS = [
-    { id: 1, name: "Premium Chanachur Special", category: "chanachur", price: 149, mrp: 189, weight: "200g", rating: 4.8, reviews: 128, image: "🥨", badge: "best", stock: true, desc: "Our signature chanachur blend with premium spices and crunchy texture." },
-    { id: 2, name: "Classic Bhujia Sev", category: "bhujia", price: 129, mrp: 159, weight: "400g", rating: 4.6, reviews: 96, image: "🍿", badge: "best", stock: true, desc: "Thin, crispy bhujia sev made with besan and secret spice mix." },
-    { id: 3, name: "Royal Mix Namkeen", category: "mixture", price: 179, mrp: 219, weight: "250g", rating: 4.9, reviews: 215, image: "🥜", badge: "best", stock: true, desc: "A royal blend of nuts, sev, and crispy elements." },
-    { id: 4, name: "Spicy Aloo Bhujia", category: "namkeen", price: 99, mrp: 129, weight: "200g", rating: 4.5, reviews: 87, image: "🍘", badge: "offer", stock: true, desc: "Potato-based bhujia with bold spices for snack lovers." },
-    { id: 5, name: "Crispy Moong Dal", category: "moongdal", price: 89, mrp: 109, weight: "150g", rating: 4.7, reviews: 64, image: "🫘", badge: "new", stock: true, desc: "Light and crunchy moong dal, lightly salted and roasted." },
-    { id: 6, name: "Masala Potato Chips", category: "chips", price: 69, mrp: 89, weight: "100g", rating: 4.4, reviews: 43, image: "🍟", badge: "new", stock: true, desc: "Thick-cut potato chips with authentic masala seasoning." },
-    { id: 7, name: "Chanachur Family Pack", category: "chanachur", price: 299, mrp: 399, weight: "1kg", rating: 4.9, reviews: 312, image: "🥨", badge: "best", stock: true, desc: "Family-size pack of our premium chanachur. Great value!" },
-    { id: 8, name: "Dal Moth Premium", category: "mixture", price: 119, mrp: 149, weight: "200g", rating: 4.6, reviews: 78, image: "🥜", badge: "offer", stock: true, desc: "Traditional dal moth with tangy spices and fried lentils." },
-    { id: 9, name: "Masala Peanut", category: "peanut", price: 109, mrp: 139, weight: "250g", rating: 4.5, reviews: 93, image: "🥜", badge: "best", stock: true, desc: "Crunchy peanuts coated with spicy masala." },
-    { id: 10, name: "Khasta Papad", category: "papad", price: 79, mrp: 99, weight: "200g", rating: 4.3, reviews: 55, image: "🫓", badge: "new", stock: true, desc: "Crispy urad dal papad, ready to fry or roast." },
-    { id: 11, name: "Jhaal Chanachur", category: "chanachur", price: 159, mrp: 199, weight: "300g", rating: 4.8, reviews: 156, image: "🥨", badge: "offer", stock: true, desc: "Extra spicy chanachur for those who love heat!" },
-    { id: 12, name: "Bhujia Family Jar", category: "bhujia", price: 249, mrp: 329, weight: "500g", rating: 4.7, reviews: 134, image: "🍿", badge: "best", stock: true, desc: "Reusable jar packed with our finest bhujia sev." },
-    { id: 13, name: "Bengali Mixture", category: "mixture", price: 139, mrp: 169, weight: "200g", rating: 4.6, reviews: 105, image: "🥜", badge: "new", stock: true, desc: "Authentic Bengali-style mixture with puffed rice and chanachur." },
-    { id: 14, name: "Roasted Chana", category: "peanut", price: 59, mrp: 79, weight: "150g", rating: 4.2, reviews: 42, image: "🥜", badge: "", stock: true, desc: "Lightly salted roasted chickpeas - healthy snacking." },
-    { id: 15, name: "Nimki Pack", category: "namkeen", price: 89, mrp: 109, weight: "200g", rating: 4.4, reviews: 61, image: "🍘", badge: "new", stock: true, desc: "Flaky, diamond-shaped nimki with cumin seeds." },
-    { id: 16, name: "Hot Chips Combo", category: "chips", price: 149, mrp: 199, weight: "300g", rating: 4.5, reviews: 72, image: "🍟", badge: "offer", stock: false, desc: "Spicy chips combo pack - 3 flavors in one!" },
-];
+// ===== PRODUCT DATA (Loaded from Admin Panel via localStorage) =====
+// No hardcoded products! Only shows products added through Admin Panel.
+const PRODUCTS = (function() {
+    const adminProducts = JSON.parse(localStorage.getItem('payel_admin_products')) || [];
+    // Convert admin products to storefront format
+    return adminProducts.map(p => ({
+        id: p.id,
+        name: p.name,
+        category: (p.category || '').toLowerCase().replace(' ', ''),
+        price: p.price,
+        mrp: p.mrp || p.price,
+        weight: p.weight,
+        rating: 4.5,
+        reviews: Math.floor(Math.random() * 50) + 10,
+        image: p.photo || getCategoryEmojiStatic(p.category),
+        badge: p.stock === 0 ? '' : (p.mrp && p.mrp > p.price) ? 'offer' : 'new',
+        stock: p.stock > 0,
+        desc: p.desc || p.name
+    }));
+})();
+
+// Helper for initial load (before getCategoryEmoji is defined)
+function getCategoryEmojiStatic(cat) {
+    const map = { 'Chanachur':'🥨', 'Bhujia':'🍿', 'Mixture':'🥜', 'Namkeen':'🍘', 'Peanut':'🥜', 'Moong Dal':'🫘', 'Chips':'🍟', 'Papad':'🫓', 'Sweets':'🍬', 'Pickles':'🥒' };
+    return map[cat] || '📦';
+}
 
 
 // ===== CART STATE =====
@@ -156,7 +163,11 @@ function renderProductCard(product) {
         <button class="product-wishlist ${isWished ? 'active' : ''}" data-id="${product.id}" onclick="toggleWishlist(${product.id})">
             <i class="${isWished ? 'fas' : 'far'} fa-heart"></i>
         </button>
-        <a href="pages/product-detail.html?id=${product.id}" class="product-img"><span>${product.image}</span></a>
+    <a href="pages/product-detail.html?id=${product.id}" class="product-img">${
+        product.image.startsWith('data:') || product.image.startsWith('http')
+            ? `<img src="${product.image}" alt="${product.name}" style="max-width:80%;max-height:80%;object-fit:contain;">`
+            : `<span>${product.image}</span>`
+    }</a>
         <div class="product-info">
             <span class="product-weight">${product.weight}</span>
             <a href="pages/product-detail.html?id=${product.id}" class="product-name">${product.name}</a>
