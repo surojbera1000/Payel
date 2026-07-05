@@ -74,9 +74,54 @@
             document.title = `${catName} | Payel Food Products`;
         }
 
-        // STEP 1: Load from localStorage INSTANTLY (no delay)
+        // Show loading spinner
+        document.getElementById('loadingSpinner').style.display = 'flex';
+        document.getElementById('productsContent').style.display = 'none';
+
+        // Load products - try API first, fallback to localStorage
+        loadAndShowProducts(cat, catLower);
+    });
+
+    async function loadAndShowProducts(cat, catLower) {
+        let filtered = [];
+
+        // Try MongoDB API
+        try {
+            const apiUrl = cat && cat !== 'all'
+                ? `/api/products?category=${encodeURIComponent(cat)}`
+                : '/api/products';
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 4000);
+            const res = await fetch(apiUrl, { signal: controller.signal });
+            clearTimeout(timeout);
+            const data = await res.json();
+            if (data.success) {
+                filtered = data.products.map(p => ({
+                    id: p._id,
+                    name: p.name,
+                    category: (p.category || '').toLowerCase().replace(' ', ''),
+                    price: p.price,
+                    mrp: p.mrp || p.price,
+                    weight: p.weight,
+                    rating: 4.5,
+                    reviews: Math.floor(Math.random() * 50) + 10,
+                    image: p.photo || getCategoryEmojiStatic((p.category || '')),
+                    badge: p.stock === 0 ? '' : (p.mrp && p.mrp > p.price) ? 'offer' : 'new',
+                    stock: p.stock > 0,
+                    desc: p.desc || p.name
+                }));
+                if (catLower && catLower !== 'all') {
+                    filtered = filtered.filter(p => p.category === catLower);
+                }
+                PRODUCTS = filtered;
+                showProducts(filtered);
+                return;
+            }
+        } catch (err) {}
+
+        // Fallback: localStorage
         const adminProducts = JSON.parse(localStorage.getItem('payel_admin_products')) || [];
-        let filtered = adminProducts.map(p => ({
+        filtered = adminProducts.map(p => ({
             id: p.id || p._id,
             name: p.name,
             category: (p.category || '').toLowerCase().replace(' ', ''),
@@ -90,20 +135,12 @@
             stock: p.stock > 0,
             desc: p.desc || p.name
         }));
-
-        // Filter by category
         if (catLower && catLower !== 'all') {
             filtered = filtered.filter(p => p.category === catLower);
         }
-
         PRODUCTS = filtered;
-
-        // Show products immediately (hide spinner)
         showProducts(filtered);
-
-        // STEP 2: Try API in background (update if more data available)
-        fetchFromAPI(cat);
-    });
+    }
 
     function showProducts(filtered) {
         document.getElementById('loadingSpinner').style.display = 'none';
@@ -128,73 +165,35 @@
         updateCartUI();
         updateWishlistUI();
     }
-
-    async function fetchFromAPI(cat) {
-        try {
-            const apiUrl = cat && cat !== 'all'
-                ? `/api/products?category=${encodeURIComponent(cat)}`
-                : '/api/products';
-            const controller = new AbortController();
-            const timeout = setTimeout(() => controller.abort(), 5000); // 5s timeout
-            const res = await fetch(apiUrl, { signal: controller.signal });
-            clearTimeout(timeout);
-            const data = await res.json();
-            if (data.success && data.products.length > 0) {
-                const catLower = cat ? cat.toLowerCase().replace(' ', '') : '';
-                let apiProducts = data.products.map(p => ({
-                    id: p._id,
-                    name: p.name,
-                    category: (p.category || '').toLowerCase().replace(' ', ''),
-                    price: p.price,
-                    mrp: p.mrp || p.price,
-                    weight: p.weight,
-                    rating: 4.5,
-                    reviews: Math.floor(Math.random() * 50) + 10,
-                    image: p.photo || getCategoryEmojiStatic((p.category || '')),
-                    badge: p.stock === 0 ? '' : (p.mrp && p.mrp > p.price) ? 'offer' : 'new',
-                    stock: p.stock > 0,
-                    desc: p.desc || p.name
-                }));
-                if (catLower && catLower !== 'all') {
-                    apiProducts = apiProducts.filter(p => p.category === catLower);
-                }
-                // Only update if API has data
-                if (apiProducts.length > 0) {
-                    PRODUCTS = apiProducts;
-                    showProducts(apiProducts);
-                }
-            }
-        } catch (err) {
-            // Silently ignore - localStorage data already shown
-        }
-    }
     </script>
 
     <style>
-    /* Loading Spinner */
+    /* Loading Spinner - White background with round spinner */
     .loading-spinner {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 60px 20px;
+        padding: 80px 20px;
+        min-height: 50vh;
+        background: #ffffff;
     }
     .spinner {
-        width: 40px;
-        height: 40px;
-        border: 4px solid #f0f0f0;
-        border-top: 4px solid #C41E3A;
+        width: 36px;
+        height: 36px;
+        border: 3px solid #f0f0f0;
+        border-top: 3px solid #C41E3A;
         border-radius: 50%;
-        animation: spin 0.7s linear infinite;
-        margin-bottom: 14px;
+        animation: spin 0.6s linear infinite;
+        margin-bottom: 12px;
     }
     @keyframes spin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
     }
     .loading-spinner p {
-        font-size: 0.85rem;
-        color: #999;
+        font-size: 0.82rem;
+        color: #aaa;
     }
 
     .category-page-header {

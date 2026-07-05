@@ -98,6 +98,11 @@ function renderTable() {
 async function saveProduct(e) {
     e.preventDefault();
     const editId = document.getElementById('editId').value;
+    const saveBtn = document.getElementById('saveBtn');
+    const originalText = saveBtn.innerHTML;
+    saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+    saveBtn.disabled = true;
+
     const product = {
         name: document.getElementById('fName').value.trim(),
         category: document.getElementById('fCategory').value,
@@ -112,7 +117,7 @@ async function saveProduct(e) {
         photo: document.getElementById('photoPreview').src || '',
     };
 
-    // Always save to localStorage first (guaranteed to work)
+    // Save to localStorage first (always works)
     if (editId) {
         const idx = products.findIndex(p => (p._id || p.id) == editId);
         if (idx > -1) products[idx] = {...products[idx], ...product};
@@ -122,7 +127,7 @@ async function saveProduct(e) {
     }
     localStorage.setItem('payel_admin_products', JSON.stringify(products));
 
-    // Also try saving to MongoDB API
+    // Try saving to MongoDB API
     try {
         let res;
         if (editId) {
@@ -133,15 +138,17 @@ async function saveProduct(e) {
         }
         const data = await res.json();
         if (data.success) {
-            toast(editId ? 'Product updated! ✓ Saved to cloud' : 'Product added! ✓ Saved to cloud');
+            toast(editId ? '✅ Product updated (cloud synced)' : '✅ Product added (cloud synced)');
             await loadProducts();
         } else {
-            toast(editId ? 'Product updated (local)' : 'Product added (local)');
+            toast(editId ? '✅ Updated (local only)' : '✅ Added (local only)');
         }
     } catch (err) {
-        toast(editId ? 'Product updated (local)' : 'Product added (local)');
+        toast(editId ? '✅ Updated (local only)' : '✅ Added (local only)');
     }
 
+    saveBtn.innerHTML = originalText;
+    saveBtn.disabled = false;
     resetForm();
     showPanel('products');
     refreshDashboard();
