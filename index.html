@@ -5,14 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Payel Food Products - Premium quality chanachur, bhujia, mixture & namkeen. Order fresh snacks online with fast delivery across India.">
     <title>Payel Food Products | Premium Snacks & Namkeen</title>
+    <!-- Preload critical fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <!-- Font Awesome - load async -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
+    <!-- Styles -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <!-- Performance hints -->
+    <link rel="dns-prefetch" href="https://i.ibb.co">
+    <meta name="theme-color" content="#C41E3A">
 </head>
 <body>
+    <!-- Instant loading indicator -->
+    <style>
+    body{margin:0;font-family:'Inter',system-ui,sans-serif;background:#fff;}
+    .header{background:#fff;border-bottom:1px solid #e8e8e8;position:sticky;top:0;z-index:900;}
+    .container{max-width:1200px;margin:0 auto;padding:0 16px;}
+    </style>
     <!-- ========== TOP NOTIFICATION BAR ========== -->
     <div class="top-bar" id="topBar">
         <div class="container">
@@ -412,7 +425,7 @@
     <!-- ========== TOAST CONTAINER ========== -->
     <div id="toastContainer"></div>
 
-    <script src="js/main.js"></script>
+    <script src="js/main.js" defer></script>
     <script>
     // Home search - redirects to products page
     function homeSearch() {
