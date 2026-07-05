@@ -3,26 +3,56 @@
    Production-Ready E-commerce Logic
    ======================================== */
 
-// ===== PRODUCT DATA (Loaded from Admin Panel via localStorage) =====
-// No hardcoded products! Only shows products added through Admin Panel.
-const PRODUCTS = (function() {
-    const adminProducts = JSON.parse(localStorage.getItem('payel_admin_products')) || [];
-    // Convert admin products to storefront format
-    return adminProducts.map(p => ({
-        id: p.id,
-        name: p.name,
-        category: (p.category || '').toLowerCase().replace(' ', ''),
-        price: p.price,
-        mrp: p.mrp || p.price,
-        weight: p.weight,
-        rating: 4.5,
-        reviews: Math.floor(Math.random() * 50) + 10,
-        image: p.photo || getCategoryEmojiStatic(p.category),
-        badge: p.stock === 0 ? '' : (p.mrp && p.mrp > p.price) ? 'offer' : 'new',
-        stock: p.stock > 0,
-        desc: p.desc || p.name
-    }));
-})();
+// ===== PRODUCT DATA (Loaded from MongoDB via API) =====
+// Products are fetched from the server (MongoDB)
+let PRODUCTS = [];
+
+// API Base URL (auto-detect: works on localhost and Vercel)
+const API_URL = '/api/products';
+
+// Fetch products from MongoDB
+async function fetchProducts(category) {
+    try {
+        const url = category ? `${API_URL}?category=${encodeURIComponent(category)}` : API_URL;
+        const response = await fetch(url);
+        const data = await response.json();
+        if (data.success) {
+            PRODUCTS = data.products.map(p => ({
+                id: p._id,
+                name: p.name,
+                category: (p.category || '').toLowerCase().replace(' ', ''),
+                price: p.price,
+                mrp: p.mrp || p.price,
+                weight: p.weight,
+                rating: 4.5,
+                reviews: Math.floor(Math.random() * 50) + 10,
+                image: p.photo || getCategoryEmojiStatic(p.category),
+                badge: p.stock === 0 ? '' : (p.mrp && p.mrp > p.price) ? 'offer' : 'new',
+                stock: p.stock > 0,
+                desc: p.desc || p.name
+            }));
+        }
+    } catch (err) {
+        console.log('API not available, using localStorage fallback');
+        // Fallback to localStorage if API fails
+        const adminProducts = JSON.parse(localStorage.getItem('payel_admin_products')) || [];
+        PRODUCTS = adminProducts.map(p => ({
+            id: p.id,
+            name: p.name,
+            category: (p.category || '').toLowerCase().replace(' ', ''),
+            price: p.price,
+            mrp: p.mrp || p.price,
+            weight: p.weight,
+            rating: 4.5,
+            reviews: Math.floor(Math.random() * 50) + 10,
+            image: p.photo || getCategoryEmojiStatic(p.category),
+            badge: p.stock === 0 ? '' : (p.mrp && p.mrp > p.price) ? 'offer' : 'new',
+            stock: p.stock > 0,
+            desc: p.desc || p.name
+        }));
+    }
+    return PRODUCTS;
+}
 
 // Helper for initial load (before getCategoryEmoji is defined)
 function getCategoryEmojiStatic(cat) {

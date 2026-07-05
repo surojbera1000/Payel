@@ -1,0 +1,11 @@
+{
+  "name": "payel-food-products",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node api/server.js"
+  },
+  "dependencies": {
+    "mongodb": "^6.3.0"
+  }
+}

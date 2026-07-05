@@ -51,18 +51,20 @@
     <div id="toastContainer"></div>
     <script src="../js/main.js"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
         const params = new URLSearchParams(window.location.search);
         const cat = params.get('cat');
         
-        // Filter products by category from admin panel
+        // Fetch products from MongoDB
+        await fetchProducts(cat && cat !== 'all' ? cat : null);
+        
+        // Filter products by category
         let filtered = [...PRODUCTS];
         
         if (cat && cat !== 'all') {
             const catLower = cat.toLowerCase().replace(' ', '');
             filtered = PRODUCTS.filter(p => p.category.toLowerCase().replace(' ', '') === catLower);
             
-            // Update page title
             const catNames = {
                 'chanachur': 'Chanachur', 'bhujia': 'Bhujia', 'mixture': 'Mixture',
                 'namkeen': 'Namkeen', 'peanut': 'Peanut', 'moongdal': 'Moong Dal',
