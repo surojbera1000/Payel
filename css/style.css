@@ -183,13 +183,13 @@ input, select, textarea { font-family: inherit; font-size: inherit; }
     margin-top: 2px;
 }
 .logo-text strong {
-    display: block;
+    display: none;
     font-family: var(--font-heading);
     font-size: 1.1rem;
     color: var(--primary);
     line-height: 1.2;
 }
-.logo-text small { font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase; }
+.logo-text small { font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase; display: none; }
 
 /* Search */
 .search-wrapper { flex: 1; max-width: 500px; position: relative; }
