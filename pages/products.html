@@ -41,7 +41,12 @@
     <!-- Products Grid -->
     <section class="section" style="padding-top: 16px;">
         <div class="container">
-            <div id="productsContent"></div>
+            <!-- Loading Spinner (shows immediately) -->
+            <div id="loadingSpinner" class="loading-spinner">
+                <div class="spinner"></div>
+                <p>Loading products...</p>
+            </div>
+            <div id="productsContent" style="display:none;"></div>
         </div>
     </section>
 
@@ -51,82 +56,60 @@
     <div id="toastContainer"></div>
     <script src="../js/main.js" defer></script>
     <script>
-    document.addEventListener('DOMContentLoaded', async () => {
+    document.addEventListener('DOMContentLoaded', () => {
         const params = new URLSearchParams(window.location.search);
         const cat = params.get('cat');
-        
-        // Try fetching from MongoDB API first, fallback to localStorage
-        let filtered = [];
-        try {
-            const apiUrl = cat && cat !== 'all' 
-                ? `/api/products?category=${encodeURIComponent(cat)}`
-                : '/api/products';
-            const res = await fetch(apiUrl);
-            const data = await res.json();
-            if (data.success && data.products.length > 0) {
-                filtered = data.products.map(p => ({
-                    id: p._id,
-                    name: p.name,
-                    category: (p.category || '').toLowerCase().replace(' ', ''),
-                    price: p.price,
-                    mrp: p.mrp || p.price,
-                    weight: p.weight,
-                    rating: 4.5,
-                    reviews: Math.floor(Math.random() * 50) + 10,
-                    image: p.photo || getCategoryEmojiStatic((p.category || '')),
-                    badge: p.stock === 0 ? '' : (p.mrp && p.mrp > p.price) ? 'offer' : 'new',
-                    stock: p.stock > 0,
-                    desc: p.desc || p.name
-                }));
-                PRODUCTS = filtered;
-            } else {
-                throw new Error('No products from API');
-            }
-        } catch (err) {
-            // Fallback: Load from localStorage (admin panel saved data)
-            console.log('Using localStorage fallback:', err.message);
-            const adminProducts = JSON.parse(localStorage.getItem('payel_admin_products')) || [];
-            const allProducts = adminProducts.map(p => ({
-                id: p.id,
-                name: p.name,
-                category: (p.category || '').toLowerCase().replace(' ', ''),
-                price: p.price,
-                mrp: p.mrp || p.price,
-                weight: p.weight,
-                rating: 4.5,
-                reviews: Math.floor(Math.random() * 50) + 10,
-                image: p.photo || getCategoryEmojiStatic((p.category || '')),
-                badge: p.stock === 0 ? '' : (p.mrp && p.mrp > p.price) ? 'offer' : 'new',
-                stock: p.stock > 0,
-                desc: p.desc || p.name
-            }));
-            PRODUCTS = allProducts;
-            
-            if (cat && cat !== 'all') {
-                const catLower = cat.toLowerCase().replace(' ', '');
-                filtered = allProducts.filter(p => p.category === catLower);
-            } else {
-                filtered = allProducts;
-            }
-        }
-        
-        // Update page title for category
+        const catLower = cat ? cat.toLowerCase().replace(' ', '') : '';
+
+        // Update page title immediately
         if (cat && cat !== 'all') {
             const catNames = {
                 'chanachur': 'Chanachur', 'bhujia': 'Bhujia', 'mixture': 'Mixture',
                 'namkeen': 'Namkeen', 'peanut': 'Peanut', 'moongdal': 'Moong Dal',
                 'chips': 'Chips', 'papad': 'Papad', 'sweets': 'Sweets', 'pickles': 'Pickles'
             };
-            const catLower = cat.toLowerCase().replace(' ', '');
             const catName = catNames[catLower] || cat.charAt(0).toUpperCase() + cat.slice(1);
             document.getElementById('categoryTitle').textContent = catName;
             document.getElementById('categoryDesc').textContent = `Showing all ${catName} products`;
             document.title = `${catName} | Payel Food Products`;
         }
-        
-        // Render products
+
+        // STEP 1: Load from localStorage INSTANTLY (no delay)
+        const adminProducts = JSON.parse(localStorage.getItem('payel_admin_products')) || [];
+        let filtered = adminProducts.map(p => ({
+            id: p.id || p._id,
+            name: p.name,
+            category: (p.category || '').toLowerCase().replace(' ', ''),
+            price: p.price,
+            mrp: p.mrp || p.price,
+            weight: p.weight,
+            rating: 4.5,
+            reviews: Math.floor(Math.random() * 50) + 10,
+            image: p.photo || getCategoryEmojiStatic((p.category || '')),
+            badge: p.stock === 0 ? '' : (p.mrp && p.mrp > p.price) ? 'offer' : 'new',
+            stock: p.stock > 0,
+            desc: p.desc || p.name
+        }));
+
+        // Filter by category
+        if (catLower && catLower !== 'all') {
+            filtered = filtered.filter(p => p.category === catLower);
+        }
+
+        PRODUCTS = filtered;
+
+        // Show products immediately (hide spinner)
+        showProducts(filtered);
+
+        // STEP 2: Try API in background (update if more data available)
+        fetchFromAPI(cat);
+    });
+
+    function showProducts(filtered) {
+        document.getElementById('loadingSpinner').style.display = 'none';
         const container = document.getElementById('productsContent');
-        
+        container.style.display = 'block';
+
         if (filtered.length === 0) {
             container.innerHTML = `
                 <div class="empty-products">
@@ -142,13 +125,78 @@
                 <div class="products-grid">${filtered.map(p => renderProductCard(p)).join('')}</div>
             `;
         }
-        
         updateCartUI();
         updateWishlistUI();
-    });
+    }
+
+    async function fetchFromAPI(cat) {
+        try {
+            const apiUrl = cat && cat !== 'all'
+                ? `/api/products?category=${encodeURIComponent(cat)}`
+                : '/api/products';
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 5000); // 5s timeout
+            const res = await fetch(apiUrl, { signal: controller.signal });
+            clearTimeout(timeout);
+            const data = await res.json();
+            if (data.success && data.products.length > 0) {
+                const catLower = cat ? cat.toLowerCase().replace(' ', '') : '';
+                let apiProducts = data.products.map(p => ({
+                    id: p._id,
+                    name: p.name,
+                    category: (p.category || '').toLowerCase().replace(' ', ''),
+                    price: p.price,
+                    mrp: p.mrp || p.price,
+                    weight: p.weight,
+                    rating: 4.5,
+                    reviews: Math.floor(Math.random() * 50) + 10,
+                    image: p.photo || getCategoryEmojiStatic((p.category || '')),
+                    badge: p.stock === 0 ? '' : (p.mrp && p.mrp > p.price) ? 'offer' : 'new',
+                    stock: p.stock > 0,
+                    desc: p.desc || p.name
+                }));
+                if (catLower && catLower !== 'all') {
+                    apiProducts = apiProducts.filter(p => p.category === catLower);
+                }
+                // Only update if API has data
+                if (apiProducts.length > 0) {
+                    PRODUCTS = apiProducts;
+                    showProducts(apiProducts);
+                }
+            }
+        } catch (err) {
+            // Silently ignore - localStorage data already shown
+        }
+    }
     </script>
 
     <style>
+    /* Loading Spinner */
+    .loading-spinner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 20px;
+    }
+    .spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #f0f0f0;
+        border-top: 4px solid #C41E3A;
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+        margin-bottom: 14px;
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    .loading-spinner p {
+        font-size: 0.85rem;
+        color: #999;
+    }
+
     .category-page-header {
         background: var(--cream);
         padding: 20px 0;
