@@ -128,8 +128,9 @@ input, select, textarea { font-family: inherit; font-size: inherit; }
 .header-inner {
     display: flex;
     align-items: center;
-    gap: 20px;
-    padding: 12px 0;
+    gap: 12px;
+    padding: 10px 0;
+    justify-content: space-between;
 }
 .logo {
     display: flex;
@@ -139,7 +140,7 @@ input, select, textarea { font-family: inherit; font-size: inherit; }
 }
 .logo-icon { font-size: 1.8rem; }
 .logo-img { height: 42px; width: auto; object-fit: contain; }
-/* Brand Logo (Styled Text - matches Payel Food Products brand) */
+/* Brand Logo */
 .brand-logo {
     display: flex;
     flex-direction: column;
@@ -147,17 +148,19 @@ input, select, textarea { font-family: inherit; font-size: inherit; }
     line-height: 1;
 }
 .brand-logo .logo-img {
-    height: 48px;
+    height: 38px;
     width: auto;
     object-fit: contain;
 }
 .brand-tagline {
-    font-size: 0.6rem;
-    font-weight: 500;
-    color: var(--text-muted);
-    letter-spacing: 0.5px;
-    margin-top: 3px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--primary);
+    letter-spacing: 0.3px;
+    margin-top: 2px;
     text-align: center;
+    font-family: var(--font-heading);
+    font-style: italic;
 }
 .brand-name {
     font-family: 'Poppins', cursive;
@@ -267,7 +270,7 @@ input, select, textarea { font-family: inherit; font-size: inherit; }
     display: flex; align-items: center; justify-content: center;
 }
 .header-right-spacer {
-    width: 170px; /* Balance with left actions */
+    width: 0px;
 }
 
 /* Full-Width Search Row */
