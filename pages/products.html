@@ -55,21 +55,69 @@
         const params = new URLSearchParams(window.location.search);
         const cat = params.get('cat');
         
-        // Fetch products from MongoDB
-        await fetchProducts(cat && cat !== 'all' ? cat : null);
-        
-        // Filter products by category
-        let filtered = [...PRODUCTS];
-        
-        if (cat && cat !== 'all') {
-            const catLower = cat.toLowerCase().replace(' ', '');
-            filtered = PRODUCTS.filter(p => p.category.toLowerCase().replace(' ', '') === catLower);
+        // Try fetching from MongoDB API first, fallback to localStorage
+        let filtered = [];
+        try {
+            const apiUrl = cat && cat !== 'all' 
+                ? `/api/products?category=${encodeURIComponent(cat)}`
+                : '/api/products';
+            const res = await fetch(apiUrl);
+            const data = await res.json();
+            if (data.success && data.products.length > 0) {
+                filtered = data.products.map(p => ({
+                    id: p._id,
+                    name: p.name,
+                    category: (p.category || '').toLowerCase().replace(' ', ''),
+                    price: p.price,
+                    mrp: p.mrp || p.price,
+                    weight: p.weight,
+                    rating: 4.5,
+                    reviews: Math.floor(Math.random() * 50) + 10,
+                    image: p.photo || getCategoryEmojiStatic((p.category || '')),
+                    badge: p.stock === 0 ? '' : (p.mrp && p.mrp > p.price) ? 'offer' : 'new',
+                    stock: p.stock > 0,
+                    desc: p.desc || p.name
+                }));
+                PRODUCTS = filtered;
+            } else {
+                throw new Error('No products from API');
+            }
+        } catch (err) {
+            // Fallback: Load from localStorage (admin panel saved data)
+            console.log('Using localStorage fallback:', err.message);
+            const adminProducts = JSON.parse(localStorage.getItem('payel_admin_products')) || [];
+            const allProducts = adminProducts.map(p => ({
+                id: p.id,
+                name: p.name,
+                category: (p.category || '').toLowerCase().replace(' ', ''),
+                price: p.price,
+                mrp: p.mrp || p.price,
+                weight: p.weight,
+                rating: 4.5,
+                reviews: Math.floor(Math.random() * 50) + 10,
+                image: p.photo || getCategoryEmojiStatic((p.category || '')),
+                badge: p.stock === 0 ? '' : (p.mrp && p.mrp > p.price) ? 'offer' : 'new',
+                stock: p.stock > 0,
+                desc: p.desc || p.name
+            }));
+            PRODUCTS = allProducts;
             
+            if (cat && cat !== 'all') {
+                const catLower = cat.toLowerCase().replace(' ', '');
+                filtered = allProducts.filter(p => p.category === catLower);
+            } else {
+                filtered = allProducts;
+            }
+        }
+        
+        // Update page title for category
+        if (cat && cat !== 'all') {
             const catNames = {
                 'chanachur': 'Chanachur', 'bhujia': 'Bhujia', 'mixture': 'Mixture',
                 'namkeen': 'Namkeen', 'peanut': 'Peanut', 'moongdal': 'Moong Dal',
                 'chips': 'Chips', 'papad': 'Papad', 'sweets': 'Sweets', 'pickles': 'Pickles'
             };
+            const catLower = cat.toLowerCase().replace(' ', '');
             const catName = catNames[catLower] || cat.charAt(0).toUpperCase() + cat.slice(1);
             document.getElementById('categoryTitle').textContent = catName;
             document.getElementById('categoryDesc').textContent = `Showing all ${catName} products`;

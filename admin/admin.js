@@ -94,7 +94,7 @@ function renderTable() {
     }).join('');
 }
 
-// Save Product to MongoDB
+// Save Product to MongoDB AND localStorage
 async function saveProduct(e) {
     e.preventDefault();
     const editId = document.getElementById('editId').value;
@@ -112,6 +112,17 @@ async function saveProduct(e) {
         photo: document.getElementById('photoPreview').src || '',
     };
 
+    // Always save to localStorage first (guaranteed to work)
+    if (editId) {
+        const idx = products.findIndex(p => (p._id || p.id) == editId);
+        if (idx > -1) products[idx] = {...products[idx], ...product};
+    } else {
+        product.id = Date.now();
+        products.unshift(product);
+    }
+    localStorage.setItem('payel_admin_products', JSON.stringify(products));
+
+    // Also try saving to MongoDB API
     try {
         let res;
         if (editId) {
@@ -122,27 +133,19 @@ async function saveProduct(e) {
         }
         const data = await res.json();
         if (data.success) {
-            toast(editId ? 'Product updated!' : 'Product added!');
+            toast(editId ? 'Product updated! ✓ Saved to cloud' : 'Product added! ✓ Saved to cloud');
             await loadProducts();
-            resetForm();
-            showPanel('products');
         } else {
-            toast('Error: ' + data.message);
+            toast(editId ? 'Product updated (local)' : 'Product added (local)');
         }
     } catch (err) {
-        // Fallback to localStorage
-        if (editId) {
-            const idx = products.findIndex(p => (p._id || p.id) === editId);
-            if (idx > -1) products[idx] = {...products[idx], ...product};
-        } else {
-            product.id = Date.now();
-            products.unshift(product);
-        }
-        localStorage.setItem('payel_admin_products', JSON.stringify(products));
-        toast(editId ? 'Product updated (local)!' : 'Product added (local)!');
-        resetForm();
-        showPanel('products');
+        toast(editId ? 'Product updated (local)' : 'Product added (local)');
     }
+
+    resetForm();
+    showPanel('products');
+    refreshDashboard();
+    renderTable();
 }
 
 // Edit
