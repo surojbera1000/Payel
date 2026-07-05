@@ -138,6 +138,7 @@ input, select, textarea { font-family: inherit; font-size: inherit; }
     flex-shrink: 0;
 }
 .logo-icon { font-size: 1.8rem; }
+.logo-img { height: 42px; width: auto; object-fit: contain; }
 .logo-text strong {
     display: block;
     font-family: var(--font-heading);
