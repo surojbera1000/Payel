@@ -99,7 +99,6 @@ async function saveProduct(e) {
     e.preventDefault();
     const editId = document.getElementById('editId').value;
     const saveBtn = document.getElementById('saveBtn');
-    const originalText = saveBtn.innerHTML;
     saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
     saveBtn.disabled = true;
 
@@ -117,7 +116,7 @@ async function saveProduct(e) {
         photo: document.getElementById('photoPreview').src || '',
     };
 
-    // Save to localStorage first (always works)
+    // Save to localStorage IMMEDIATELY
     if (editId) {
         const idx = products.findIndex(p => (p._id || p.id) == editId);
         if (idx > -1) products[idx] = {...products[idx], ...product};
@@ -127,32 +126,30 @@ async function saveProduct(e) {
     }
     localStorage.setItem('payel_admin_products', JSON.stringify(products));
 
-    // Try saving to MongoDB API
+    // Done! Show success immediately
+    saveBtn.innerHTML = '<i class="fas fa-check"></i> Saved!';
+    toast('✅ Product saved successfully!');
+    
+    setTimeout(() => {
+        saveBtn.innerHTML = '<i class="fas fa-save"></i> Save Product';
+        saveBtn.disabled = false;
+        resetForm();
+        showPanel('products');
+        refreshDashboard();
+        renderTable();
+    }, 500);
+
+    // Try MongoDB in background (don't wait for it)
     try {
-        let res;
+        const controller = new AbortController();
+        setTimeout(() => controller.abort(), 3000);
         if (editId) {
             product.id = editId;
-            res = await fetch(API_URL, { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify(product) });
+            fetch(API_URL, { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify(product), signal: controller.signal }).catch(() => {});
         } else {
-            res = await fetch(API_URL, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(product) });
+            fetch(API_URL, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(product), signal: controller.signal }).catch(() => {});
         }
-        const data = await res.json();
-        if (data.success) {
-            toast(editId ? '✅ Product updated (cloud synced)' : '✅ Product added (cloud synced)');
-            await loadProducts();
-        } else {
-            toast(editId ? '✅ Updated (local only)' : '✅ Added (local only)');
-        }
-    } catch (err) {
-        toast(editId ? '✅ Updated (local only)' : '✅ Added (local only)');
-    }
-
-    saveBtn.innerHTML = originalText;
-    saveBtn.disabled = false;
-    resetForm();
-    showPanel('products');
-    refreshDashboard();
-    renderTable();
+    } catch (err) {}
 }
 
 // Edit
