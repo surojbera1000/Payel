@@ -146,6 +146,19 @@ input, select, textarea { font-family: inherit; font-size: inherit; }
     align-items: center;
     line-height: 1;
 }
+.brand-logo .logo-img {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
+}
+.brand-tagline {
+    font-size: 0.6rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    margin-top: 3px;
+    text-align: center;
+}
 .brand-name {
     font-family: 'Poppins', cursive;
     font-size: 1.6rem;
