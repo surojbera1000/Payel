@@ -94,7 +94,7 @@ function renderTable() {
     }).join('');
 }
 
-// Save Product to MongoDB AND localStorage
+// Save Product - API first, localStorage backup
 async function saveProduct(e) {
     e.preventDefault();
     const editId = document.getElementById('editId').value;
@@ -116,7 +116,29 @@ async function saveProduct(e) {
         photo: document.getElementById('photoPreview').src || '',
     };
 
-    // Save to localStorage IMMEDIATELY
+    let savedToCloud = false;
+
+    // Try MongoDB API (with 5s timeout)
+    try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 5000);
+        let res;
+        if (editId) {
+            product.id = editId;
+            res = await fetch(API_URL, { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify(product), signal: controller.signal });
+        } else {
+            res = await fetch(API_URL, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(product), signal: controller.signal });
+        }
+        clearTimeout(timeout);
+        const data = await res.json();
+        if (data.success) {
+            savedToCloud = true;
+        }
+    } catch (err) {
+        console.log('API save failed:', err.message);
+    }
+
+    // Also save to localStorage (backup)
     if (editId) {
         const idx = products.findIndex(p => (p._id || p.id) == editId);
         if (idx > -1) products[idx] = {...products[idx], ...product};
@@ -126,9 +148,9 @@ async function saveProduct(e) {
     }
     localStorage.setItem('payel_admin_products', JSON.stringify(products));
 
-    // Done! Show success immediately
+    // Show result
     saveBtn.innerHTML = '<i class="fas fa-check"></i> Saved!';
-    toast('✅ Product saved successfully!');
+    toast(savedToCloud ? '✅ Saved to cloud!' : '✅ Saved locally! (Cloud sync pending)');
     
     setTimeout(() => {
         saveBtn.innerHTML = '<i class="fas fa-save"></i> Save Product';
@@ -137,19 +159,7 @@ async function saveProduct(e) {
         showPanel('products');
         refreshDashboard();
         renderTable();
-    }, 500);
-
-    // Try MongoDB in background (don't wait for it)
-    try {
-        const controller = new AbortController();
-        setTimeout(() => controller.abort(), 3000);
-        if (editId) {
-            product.id = editId;
-            fetch(API_URL, { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify(product), signal: controller.signal }).catch(() => {});
-        } else {
-            fetch(API_URL, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(product), signal: controller.signal }).catch(() => {});
-        }
-    } catch (err) {}
+    }, 800);
 }
 
 // Edit

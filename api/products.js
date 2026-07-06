@@ -1,15 +1,26 @@
 const { MongoClient, ObjectId } = require('mongodb');
 
 const uri = process.env.MONGODB_URI;
-const DB_NAME = 'payelfood';
 let cachedClient = null;
+let cachedDb = null;
 
 async function getDb() {
-    if (cachedClient) return cachedClient.db(DB_NAME);
-    const client = new MongoClient(uri);
+    if (cachedDb) return cachedDb;
+    
+    if (!uri) {
+        throw new Error('MONGODB_URI environment variable not set');
+    }
+
+    const client = new MongoClient(uri, {
+        maxPoolSize: 10,
+        serverSelectionTimeoutMS: 5000,
+        socketTimeoutMS: 10000,
+    });
+    
     await client.connect();
     cachedClient = client;
-    return client.db(DB_NAME);
+    cachedDb = client.db('payelfood');
+    return cachedDb;
 }
 
 module.exports = async function handler(req, res) {
@@ -17,13 +28,16 @@ module.exports = async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    if (req.method === 'OPTIONS') return res.status(200).end();
+    
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
 
     try {
         const db = await getDb();
         const collection = db.collection('products');
 
-        // GET - Fetch all products (or filter by category)
+        // GET - Fetch all products
         if (req.method === 'GET') {
             const { category } = req.query;
             let filter = {};
@@ -31,13 +45,19 @@ module.exports = async function handler(req, res) {
                 filter.category = { $regex: new RegExp(category, 'i') };
             }
             const products = await collection.find(filter).sort({ _id: -1 }).toArray();
-            return res.status(200).json({ success: true, products });
+            return res.status(200).json({ success: true, count: products.length, products });
         }
 
         // POST - Add new product
         if (req.method === 'POST') {
             const product = req.body;
+            if (!product.name) {
+                return res.status(400).json({ success: false, message: 'Product name is required' });
+            }
             product.createdAt = new Date();
+            product.price = Number(product.price) || 0;
+            product.mrp = Number(product.mrp) || 0;
+            product.stock = Number(product.stock) || 0;
             const result = await collection.insertOne(product);
             return res.status(201).json({ success: true, id: result.insertedId, message: 'Product added!' });
         }
@@ -47,6 +67,9 @@ module.exports = async function handler(req, res) {
             const { id, ...updateData } = req.body;
             if (!id) return res.status(400).json({ success: false, message: 'Product ID required' });
             updateData.updatedAt = new Date();
+            updateData.price = Number(updateData.price) || 0;
+            updateData.mrp = Number(updateData.mrp) || 0;
+            updateData.stock = Number(updateData.stock) || 0;
             await collection.updateOne({ _id: new ObjectId(id) }, { $set: updateData });
             return res.status(200).json({ success: true, message: 'Product updated!' });
         }
@@ -61,7 +84,11 @@ module.exports = async function handler(req, res) {
 
         return res.status(405).json({ success: false, message: 'Method not allowed' });
     } catch (error) {
-        console.error('API Error:', error);
-        return res.status(500).json({ success: false, message: 'Server error', error: error.message });
+        console.error('API Error:', error.message);
+        return res.status(500).json({ 
+            success: false, 
+            message: 'Database connection failed. Check MONGODB_URI in Vercel environment variables.',
+            error: error.message 
+        });
     }
 };
